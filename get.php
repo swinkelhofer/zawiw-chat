@@ -14,9 +14,11 @@ function zawiw_chat_shortcode()
 	}
 ?>
 
-<textarea id="zawiw-chat-area" rows="20">
-Load chat...
-</textarea>
+ <!-- html div bereich-->
+<div id ="zawiw-chat-area" style="height:400px; overflow-y: scroll; overflow-x: hidden;" >
+
+</div>
+
 <div id="zawiw_chat">
 	<form action="" method="post" enctype="multipart/form-data">
 		<?php wp_nonce_field( 'zawiw_chat' ); ?>
@@ -24,7 +26,6 @@ Load chat...
 		<input type="submit" name="submit" value="Senden">
 	</form>
 </div>
-
 
 <?php
 
