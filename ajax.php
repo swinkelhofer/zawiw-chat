@@ -11,6 +11,11 @@
 	foreach ($zawiw_chat_item as $chat_item)
 	{
 		$userdata = get_user_by( 'id', $chat_item['userId'] );//get_userdata($chat_item['userId']);
-		echo date_format( date_create($chat_item['createDT']), 'm.d.Y H:i')."\n" . $userdata->user_nicename . "\n" . $chat_item['message'] . "\n\n";
+		echo date_format( date_create($chat_item['createDT']), 'm.d.Y H:i'). "\n";
+		if(strlen($userdata->user_firstname) AND strlen($userdata->user_lastname))
+			echo ($userdata->user_firstname . " ". $userdata->user_lastname);
+		else
+			echo $userdata->user_nicename;
+		echo "\n" . $chat_item['message'] . "\n\n";
 	}
 ?>
