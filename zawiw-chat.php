@@ -3,7 +3,7 @@
 Plugin Name: Zawiw Chat
 Plgin URI:
 Description: Einfacher Chat
-Version: 1.1
+Version: 1.2
 Author: Georg Eisenhart, Sascha Winkelhofer
 Author URI:
 License: MIT

@@ -1,0 +1,42 @@
+#zawiw-chat-area {
+	background-color: #F0F0F0;
+	padding: 10px;
+	font-family: Lato, sans;
+}
+
+#zawiw-chat {
+}
+
+.chat_input {
+	margin: 0;
+	display: inline-block;
+	float: left;
+	width: 80%;
+}
+
+.submit_button {
+	margin: 0;
+	float: left;
+	display: inline-block;
+	width: 20%;
+}
+
+.submit_button input {
+	width: 100%;
+}
+
+.zawiw-chat-datetime {
+	color: #555;
+	font-size: 75%;
+}
+
+.zawiw-chat-user {
+	color: #555;
+	font-size: 75%;
+}
+
+.zawiw-chat-message {
+	font-family: 'emoji';
+	font-size: 110%;
+}
+
