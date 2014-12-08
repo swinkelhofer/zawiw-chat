@@ -5,6 +5,8 @@ A simple WordPress-Plugin chat
 
 Changelog
 =========
+1.3
+	Visual Effects
 1.2
 	Added backup function for messages older than 7 days
 1.1

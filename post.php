@@ -27,7 +27,6 @@ function zawiw_chat_post()
 {
 	unset_post_escape();
 	mb_internal_encoding("UTF-8");
-	echo $_POST['msg'];
 	global $wpdb;
 	if(isset($_POST['submit']) && strlen($_POST['msg']) && check_admin_referer('zawiw_chat'))
 	{
