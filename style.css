@@ -64,3 +64,24 @@
 	margin-bottom: 5px;
 	box-shadow: 2px 2px 2px rgba(50,50,50,.4);
 }
+#zawiw_chat_download
+{
+	margin-top: 20px;
+	float: left;
+}
+#zawiw_chat_pdf
+{
+	margin-top: 20px;
+	float: left;
+}
+a.fa:before
+{
+	padding-right: 5px;
+}
+#zawiw_chat_download_expandable
+{
+	display: block;
+	overflow: hidden;
+	max-height: 0px;
+	transition: all 0.3s linear 0s;
+}

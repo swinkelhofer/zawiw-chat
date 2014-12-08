@@ -5,6 +5,8 @@ A simple WordPress-Plugin chat
 
 Changelog
 =========
+1.4
+	Added chat history download via PDF
 1.3
 	Visual Effects
 1.2

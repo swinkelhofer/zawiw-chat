@@ -27,16 +27,26 @@ function zawiw_chat_post()
 {
 	unset_post_escape();
 	mb_internal_encoding("UTF-8");
-	global $wpdb;
 	if(isset($_POST['submit']) && strlen($_POST['msg']) && check_admin_referer('zawiw_chat'))
 	{
-		$timezone = new DateTimeZone('Europe/Berlin');
-		$dbdata['createDT'] = date_format(date_create("now", $timezone),'Y-m-d H:i:s');
-		$dbdata['userId'] = get_current_user_id();
-		$dbdata['message'] = isset( $_POST['msg'] ) ? sanitize_text_field(utf8_encode(escape($_POST['msg']))) : '';
-		$wpdb->insert( $wpdb->get_blog_prefix().'zawiw_chat_data', $dbdata);
+		write_db();
+	}
+	else if(isset($_POST['download']) && check_admin_referer('zawiw_chat') && strlen($_POST['from']) && strlen($_POST['to']))
+	{
+		require("download.php");
 	}
 	zawiw_chat_backup_db();
+	deleteOldPdfs();
+}
+
+function write_db()
+{
+	global $wpdb;
+	$timezone = new DateTimeZone('Europe/Berlin');
+	$dbdata['createDT'] = date_format(date_create("now", $timezone),'Y-m-d H:i:s');
+	$dbdata['userId'] = get_current_user_id();
+	$dbdata['message'] = isset( $_POST['msg'] ) ? sanitize_text_field(utf8_encode(escape($_POST['msg']))) : '';
+	$wpdb->insert( $wpdb->get_blog_prefix().'zawiw_chat_data', $dbdata);
 }
 
 function zawiw_chat_backup_db()
@@ -53,6 +63,24 @@ function zawiw_chat_backup_db()
 	}
 }
 
+function deleteOldPdfs()
+{
+	$folderName = dirname( __FILE__ ) . "/pdfs";
+	if (file_exists($folderName)) 
+	{
+	    foreach (new DirectoryIterator($folderName) as $fileInfo) 
+	    {
+	        if ($fileInfo->isDot()) 
+	        {
+	        	continue;
+	        }
+	        if (time() - $fileInfo->getCTime() >= 5*60)  //5 Minutes
+	        {
+	            unlink($fileInfo->getRealPath());
+	        }
+	    }
+	}
+}
 
 
 ?>
