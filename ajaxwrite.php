@@ -1,13 +1,6 @@
 <?php
-add_action('template_redirect', 'zawiw_chat_post');
-/*function escape($str)
-{
-	$str = str_replace("'", "&#39;", $str);
-	$str = str_replace("\"", "&#34;", $str);
-	$str = str_replace("`", "&#180;", $str);
-	return $str;
-}*/
-/*
+
+require_once("../../../wp-load.php");
 function unset_post_escape()
 {
 	$process = array(&$_GET, &$_POST, &$_COOKIE, &$_REQUEST);
@@ -23,24 +16,15 @@ function unset_post_escape()
 	    }
 	}
 	unset($process);
-}*/
-function zawiw_chat_post()
-{
-	/*unset_post_escape();
-	mb_internal_encoding("UTF-8");
-	if(isset($_POST['submit']) && strlen($_POST['msg']) && check_admin_referer('zawiw_chat'))
-	{
-		write_db();
-	}*/
-	if(isset($_POST['download']) && check_admin_referer('zawiw_chat') && strlen($_POST['from']) && strlen($_POST['to']))
-	{
-		require("download.php");
-		deleteOldPdfs();
-	}
-	//zawiw_chat_backup_db();
 }
-
-/*function write_db()
+function escape($str)
+{
+	$str = str_replace("'", "&#39;", $str);
+	$str = str_replace("\"", "&#34;", $str);
+	$str = str_replace("`", "&#180;", $str);
+	return $str;
+}
+function write_db()
 {
 	global $wpdb;
 	$timezone = new DateTimeZone('Europe/Berlin');
@@ -48,9 +32,10 @@ function zawiw_chat_post()
 	$dbdata['userId'] = get_current_user_id();
 	$dbdata['message'] = isset( $_POST['msg'] ) ? sanitize_text_field(utf8_encode(escape($_POST['msg']))) : '';
 	$wpdb->insert( $wpdb->get_blog_prefix().'zawiw_chat_data', $dbdata);
-}*/
+	echo mysql_error();
+}
 
-/*function zawiw_chat_backup_db()
+function zawiw_chat_backup_db()
 {
 	global $wpdb;
 	$zawiw_chat_query = 'SELECT * FROM ';
@@ -62,26 +47,20 @@ function zawiw_chat_post()
 		$wpdb->insert( $wpdb->get_blog_prefix().'zawiw_chat_backup', $zawiw_chat_backup_item );
 		$wpdb->delete( $wpdb->get_blog_prefix().'zawiw_chat_data', $zawiw_chat_backup_item);
 	}
-}*/
-
-function deleteOldPdfs()
-{
-	$folderName = dirname( __FILE__ ) . "/pdfs";
-	if (file_exists($folderName)) 
-	{
-	    foreach (new DirectoryIterator($folderName) as $fileInfo) 
-	    {
-	        if ($fileInfo->isDot()) 
-	        {
-	        	continue;
-	        }
-	        if (time() - $fileInfo->getCTime() >= 5*60)  //5 Minutes
-	        {
-	            unlink($fileInfo->getRealPath());
-	        }
-	    }
-	}
 }
 
+if(!is_user_logged_in())
+{
+	echo "<div id='zawiw-chat-message'>Sie müssen angemeldet sein, um diese Funktion zu nutzen</div>";
+	exit;
+}
+
+unset_post_escape();
+mb_internal_encoding("UTF-8");
+if(isset($_POST['submit']) && strlen($_POST['msg']) && check_admin_referer('zawiw_chat'))
+{
+	write_db();
+	zawiw_chat_backup_db();
+}
 
 ?>

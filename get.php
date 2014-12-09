@@ -15,13 +15,14 @@ function zawiw_chat_shortcode()
 </div>
 
 <div id="zawiw_chat">
-	<form action="" method="post" enctype="application/x-www-form-urlencoded" accept-charset="UTF-8">
+	<form action="" id="form" method="post" enctype="application/x-www-form-urlencoded" accept-charset="UTF-8">
 		<?php wp_nonce_field( 'zawiw_chat' ); ?>
 		<div class="chat_input">
 			<input class="" type="text" name="msg" id="msg" placeholder="Type your message" />
 		</div>
 		<div class="submit_button">
-			<input class="" type="submit" name="submit" value="Senden" />
+			<input type="hidden" name="submit" value="Senden" />
+			<input onClick="javascript: postMessage()" type="button" id="send" value="Senden" />
 		</div>
 <?php if(isset($_POST['pdffile'])):  ?>
 		<a href="../<?php echo $_POST['pdffile']; ?>" class="fa fa-download" id="zawiw_chat_pdf">Download chat history</a>
@@ -61,7 +62,5 @@ function zawiw_chat_queue_script()
     wp_enqueue_script( 'jquery' );
     wp_enqueue_script( 'zawiw_chat_script', plugins_url( 'helper.js', __FILE__ ) );
 	wp_enqueue_script( 'datetimepickerjs', plugins_url( 'datetimepicker/jquery.datetimepicker.js', __FILE__ ) );
-
-
 }
 ?>

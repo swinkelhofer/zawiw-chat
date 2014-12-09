@@ -85,3 +85,7 @@ a.fa:before
 	max-height: 0px;
 	transition: all 0.3s linear 0s;
 }
+
+#send.disabled{
+	background-color: #333;
+}

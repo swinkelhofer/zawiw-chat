@@ -1,12 +1,57 @@
 function insert()
 {
+	var date = new Date((new Date()).valueOf() - 604800000);
+	var month = parseInt(date.getMonth())+1;
+	if(parseInt(month) < 10)
+		month = "0" + month;
+	var day = date.getDate();
+	if(parseInt(day) < 10)
+		day = "0" + day;
+	var hours = date.getHours();
+	if(parseInt(hours) < 10)
+		hours = "0" + hours;
+	var minutes = date.getMinutes();
+	if(parseInt(minutes) < 10)
+		minutes = "0" + minutes;
+	var seconds = date.getSeconds();
+	if(parseInt(seconds) < 10)
+		seconds = "0" + seconds;
+	var datestring = date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 	var tmp = jQuery("#zawiw-chat-area")[0].scrollHeight;
-	jQuery.get( "../wp-content/plugins/zawiw-chat/ajax.php", function( data ) {
+	jQuery.post( "../wp-content/plugins/zawiw-chat/ajax.php", { lastpost: datestring }, function( data ) {
 		
- 	jQuery( "#zawiw-chat-area" ).html( data );
- 	if(jQuery("#zawiw-chat-area").scrollTop() == 0 || jQuery("#zawiw-chat-area").scrollTop() == tmp)
- 		jQuery("#zawiw-chat-area").scrollTop(jQuery("#zawiw-chat-area")[0].scrollHeight);
-});
+ 		jQuery( "#zawiw-chat-area" ).html( data );
+ 		if(jQuery("#zawiw-chat-area").scrollTop() == 0 || jQuery("#zawiw-chat-area").scrollTop() == tmp)
+ 			jQuery("#zawiw-chat-area").scrollTop(jQuery("#zawiw-chat-area")[0].scrollHeight);
+		window.setTimeout("appendChatItem(true)", 5000);
+	});
+
+}
+
+function postMessage()
+{
+	jQuery.post('../wp-content/plugins/zawiw-chat/ajaxwrite.php', jQuery('#form').serialize(), function( data) {
+	
+	 	jQuery('#msg').val('');
+		appendChatItem(false);
+	});
+}
+
+function appendChatItem(selfUpdate)
+{
+	var tmp = jQuery("#zawiw-chat-area")[0].scrollHeight;
+	var timestamp = jQuery('#zawiw-chat-area').children('input').val();
+	jQuery.post( "../wp-content/plugins/zawiw-chat/ajax.php", { lastpost: timestamp }, function( data ) {
+		jQuery('#zawiw-chat-area').children('input').remove();
+ 		jQuery( "#zawiw-chat-area" ).append( data );
+
+ 		if(jQuery("#zawiw-chat-area").scrollTop() == 0 || jQuery("#zawiw-chat-area").scrollTop() == tmp)
+ 			jQuery("#zawiw-chat-area").scrollTop(jQuery("#zawiw-chat-area")[0].scrollHeight);
+ 		if(selfUpdate)
+			window.setTimeout("appendChatItem()", 5000);
+
+	});
+
 }
 
 function expand(elem)
@@ -27,11 +72,9 @@ function expand(elem)
 function startTimer()
 {
 	insert();
-	window.setInterval("insert()", 5000);
 }
 jQuery(document).ready(function(){
 	startTimer();
-	//jQuery('#msg').css("display", "none");
 	jQuery('#msg').bind("keyup", function() {
 		replaceEmojis();
 	});

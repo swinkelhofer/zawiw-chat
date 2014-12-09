@@ -8,9 +8,9 @@
 		return;
 	}
 	$zawiw_chat_query = 'SELECT * FROM ';
-	$zawiw_chat_query .= $wpdb->get_blog_prefix() . 'zawiw_chat_data ORDER BY createDT ASC';
+	$zawiw_chat_query .= $wpdb->get_blog_prefix() . 'zawiw_chat_data ';
+	$zawiw_chat_query .= 'WHERE createDT > \'' . $_POST['lastpost'] . '\' ORDER BY createDT ASC';
 	$zawiw_chat_item = $wpdb->get_results( $zawiw_chat_query, ARRAY_A );
-
 	foreach ($zawiw_chat_item as $chat_item)
 	{
 		$userdata = get_user_by( 'id', $chat_item['userId'] );
@@ -20,5 +20,14 @@
 		
 		echo "<div class=\"zawiw-chat-message\"><span>" . utf8_decode($chat_item['message']) . "<span></div><br /><br />";
 	}
+	if (sizeof($zawiw_chat_item) == 0)
+		echo "<input type=\"hidden\" name=\"timestamp\" value=\"" . $_POST['lastpost'] . "\">";
+	else
+	{
+		$last_date_item = $zawiw_chat_item[sizeof($zawiw_chat_item) - 1];
+		$time = $last_date_item['createDT'];
+		echo "<input type=\"hidden\" name=\"timestamp\" value=\"" . $time . "\" />";	
+	}
+
 ?>
 

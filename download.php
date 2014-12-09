@@ -21,7 +21,6 @@ function generateRandomString($length = 10)
 	$zawiw_chat_query = 'SELECT createDT, userId, message FROM ';
 	$zawiw_chat_query .= $wpdb->get_blog_prefix() . 'zawiw_chat_data WHERE createDT BETWEEN \'' . date_format(date_create($_POST['from'], $timezone),'Y-m-d H:i:s') . '\' AND \'' . date_format(date_create($_POST['to'], $timezone),'Y-m-d H:i:s')  . '\' ' .
 	'UNION SELECT createDT, userId, message FROM '. $wpdb->get_blog_prefix() .'zawiw_chat_backup WHERE createDT BETWEEN \'' . date_format(date_create($_POST['from'], $timezone),'Y-m-d H:i:s') . '\' AND \'' . date_format(date_create($_POST['to'], $timezone),'Y-m-d H:i:s') . '\' ORDER BY createDT ASC';
-	//echo $zawiw_chat_query;
 	$zawiw_chat_item = $wpdb->get_results( $zawiw_chat_query, ARRAY_A );
 
 	include('mpdf/MPDF57/mpdf.php');
