@@ -13,7 +13,7 @@ function zawiw_chat_activation()
 			$blog_list = $wpdb->get_col('SELECT blog_id FROM ' . $wpdb->blogs);
 			foreach($blog_list as $blog)
 			{
-				switch_to_blog($blod);
+				switch_to_blog($blog);
 				zawiw_chat_create_db($wpdb->get_blog_prefix());
 				zawiw_chat_create_backup_db($wpdb->get_blog_prefix());
 			}
