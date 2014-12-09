@@ -66,13 +66,12 @@
 }
 #zawiw_chat_download
 {
-	margin-top: 20px;
 	float: left;
 }
-#zawiw_chat_pdf
+#zawiw_chat_download a
 {
+	display: block;
 	margin-top: 20px;
-	float: left;
 }
 a.fa:before
 {

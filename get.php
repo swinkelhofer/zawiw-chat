@@ -24,10 +24,10 @@ function zawiw_chat_shortcode()
 			<input type="hidden" name="submit" value="Senden" />
 			<input onClick="javascript: postMessage()" type="button" id="send" value="Senden" />
 		</div>
+		<div id="zawiw_chat_download">
 <?php if(isset($_POST['pdffile'])):  ?>
 		<a href="../<?php echo $_POST['pdffile']; ?>" class="fa fa-download" id="zawiw_chat_pdf">Download chat history</a>
 <?php endif; ?>
-		<div id="zawiw_chat_download">
 			<a href="javascript: expand('#zawiw_chat_download_expandable')" class="fa fa-chevron-down">Create chat history</a>
 			<div id="zawiw_chat_download_expandable">
 				<label for="from">From</label>
