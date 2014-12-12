@@ -5,6 +5,8 @@ A simple WordPress-Plugin chat
 
 Changelog
 =========
+1.6.1
+	Unified language in frontend
 1.6
 	Added notification on new message, asyncronous PDF generation/download, minor bugfixes
 1.5
