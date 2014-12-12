@@ -18,7 +18,7 @@
 		echo "</a></div>";
 		echo "<div class=\"zawiw-chat-datetime\">" . date_format( date_create($chat_item['createDT']), 'd.m.Y H:i'). "</div>";
 		
-		echo "<div class=\"zawiw-chat-message\"><span>" . utf8_decode($chat_item['message']) . "<span></div><br /><br />";
+		echo "<div class=\"zawiw-chat-message ". (($userdata->ID == get_current_user_id())?"":"not_own") . "\"><span>" . utf8_decode($chat_item['message']) . "<span></div><br /><br />";
 	}
 	if (sizeof($zawiw_chat_item) == 0)
 		echo "<input type=\"hidden\" name=\"timestamp\" value=\"" . $_POST['lastpost'] . "\">";

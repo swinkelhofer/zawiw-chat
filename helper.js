@@ -20,7 +20,7 @@ function insert()
 	var tmp = jQuery("#zawiw-chat-area")[0].scrollHeight;
 	jQuery.post( "../wp-content/plugins/zawiw-chat/ajax.php", { lastpost: datestring }, function( data ) {
 		
- 		jQuery( "#zawiw-chat-area" ).html( data );
+ 		jQuery( "#zawiw-chat-area" ).append( data );
  		if(jQuery("#zawiw-chat-area").scrollTop() == 0 || jQuery("#zawiw-chat-area").scrollTop() == tmp)
  			jQuery("#zawiw-chat-area").scrollTop(jQuery("#zawiw-chat-area")[0].scrollHeight);
 		window.setTimeout("appendChatItem(true)", 5000);
@@ -37,18 +37,49 @@ function postMessage()
 	});
 }
 
+function getPDF()
+{
+	jQuery('#pdfcontainer').empty();
+	jQuery('#wait').css('height','40px');
+	jQuery('#wait').css('width', '40px');
+	jQuery.post('../wp-content/plugins/zawiw-chat/download.php', jQuery('#form').serialize(), function( data) {
+		if(data.substr(-4,4) == ".pdf")
+		{
+		 	jQuery('#pdfcontainer').append("<a href=\""+ data +"\" class=\"fa fa-download\" id=\"zawiw_chat_pdf\">Download chat history</a>");
+			jQuery('#from').removeClass('warning');
+			jQuery('#to').removeClass('warning');
+			jQuery('#wait').css('height','0px');
+			jQuery('#wait').css('width','0px');
+		}
+		else
+		{
+			jQuery('#pdfcontainer').append("<div class='pdferror'>Bitte Daten überprüfen</div>");
+			jQuery('#from').addClass('warning');
+			jQuery('#to').addClass('warning');
+			jQuery('#wait').css('height','0px');
+			jQuery('#wait').css('width','0px');
+		}
+	});
+
+}
+
 function appendChatItem(selfUpdate)
 {
-	var tmp = jQuery("#zawiw-chat-area")[0].scrollHeight;
+	var tmp = jQuery('#zawiw-chat-area').prop('scrollHeight') - parseInt((jQuery('#zawiw-chat-area').css('height')).replace("px", ""));
 	var timestamp = jQuery('#zawiw-chat-area').children('input').val();
+	if(timestamp == null)
+		return;
+
+	jQuery('#zawiw-chat-area').children('input').remove();
 	jQuery.post( "../wp-content/plugins/zawiw-chat/ajax.php", { lastpost: timestamp }, function( data ) {
-		jQuery('#zawiw-chat-area').children('input').remove();
+ 		if(selfUpdate)
+			window.setTimeout("appendChatItem(true)", 5000);
  		jQuery( "#zawiw-chat-area" ).append( data );
 
- 		if(jQuery("#zawiw-chat-area").scrollTop() == 0 || jQuery("#zawiw-chat-area").scrollTop() == tmp)
- 			jQuery("#zawiw-chat-area").scrollTop(jQuery("#zawiw-chat-area")[0].scrollHeight);
- 		if(selfUpdate)
-			window.setTimeout("appendChatItem()", 5000);
+ 		if(data.search("class=\"zawiw-chat-message not_own\"") != -1)
+ 			notification();
+ 		if(jQuery("#zawiw-chat-area").prop('scrollTop') == tmp)
+ 			jQuery("#zawiw-chat-area").prop('scrollTop', jQuery("#zawiw-chat-area").prop('scrollHeight'));
 
 	});
 
@@ -73,9 +104,10 @@ function startTimer()
 {
 	insert();
 }
+
 jQuery(document).ready(function(){
 	startTimer();
-	jQuery('#msg').bind("keyup", function() {
+	jQuery('#msg').bind("keypress", function() {
 		replaceEmojis();
 	});
         jQuery('#from').datetimepicker({
@@ -85,7 +117,8 @@ jQuery(document).ready(function(){
             step: 60,
             defaultDate: false,
             defaultTime: false,
-            allowBlank: true
+            allowBlank: true,
+            closeOnDateSelect:true
 
         });
         jQuery('#to').datetimepicker({
@@ -95,10 +128,19 @@ jQuery(document).ready(function(){
             step: 60,
             defaultDate: false,
             defaultTime: false,
-            allowBlank: true
+            allowBlank: true,
+            closeOnDateSelect:true
 
         })
 });
+
+function notification()
+{
+	jQuery("zawiw-notification-placeholder").toggle();
+	jQuery("#zawiw-notification-placeholder").fadeIn(1);
+	jQuery("#zawiw-chat-notification").html("<b>Sie haben eine neue Nachricht</b>");
+	jQuery("#zawiw-notification-placeholder").fadeOut(5000);
+}
 
 function replaceEmojis()
 {

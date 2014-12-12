@@ -11,11 +11,18 @@ function zawiw_chat_shortcode()
 	}
 ?>
  <!-- html div bereich-->
-<div id ="zawiw-chat-area" style="height:400px; overflow-y: scroll; overflow-x: hidden;" >
+<div id="zawiw-chat-view">
+<div id="zawiw-notification-placeholder">
+<div id="zawiw-chat-notification">
+</div>
+</div>
+<div id ="zawiw-chat-area">
+
+</div>
 </div>
 
 <div id="zawiw_chat">
-	<form action="" id="form" method="post" enctype="application/x-www-form-urlencoded" accept-charset="UTF-8">
+	<form action="" id="form" method="post" enctype="application/x-www-form-urlencoded" accept-charset="UTF-8" autocomplete="off">
 		<?php wp_nonce_field( 'zawiw_chat' ); ?>
 		<div class="chat_input">
 			<input class="" type="text" name="msg" id="msg" placeholder="Type your message" />
@@ -25,16 +32,16 @@ function zawiw_chat_shortcode()
 			<input onClick="javascript: postMessage()" type="button" id="send" value="Senden" />
 		</div>
 		<div id="zawiw_chat_download">
-<?php if(isset($_POST['pdffile'])):  ?>
-		<a href="../<?php echo $_POST['pdffile']; ?>" class="fa fa-download" id="zawiw_chat_pdf">Download chat history</a>
-<?php endif; ?>
 			<a href="javascript: expand('#zawiw_chat_download_expandable')" class="fa fa-chevron-down">Create chat history</a>
 			<div id="zawiw_chat_download_expandable">
+				<div id="wait"><img src='../wp-content/plugins/zawiw-chat/animatedEllipse.gif' /></div>
+				<div id="pdfcontainer"></div>
 				<label for="from">From</label>
 				<input type="text" id="from" name="from" />
 				<label for="to">To</label>
 				<input type="text" id="to" name="to" />
-				<input type="submit" name="download" value="Create history file" />
+				<input type="hidden" name="download" value="Senden" />
+				<input type="button" name="download" id="download" onClick="javascript: getPDF()" value="Create history file" />
 			</div>
 		</div>
 

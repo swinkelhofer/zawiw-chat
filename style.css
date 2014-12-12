@@ -1,7 +1,33 @@
 #zawiw-chat-area {
 	background-color: #F0F0F0;
 	padding: 10px;
+	position: relative;
+	height:400px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+#zawiw-chat-view {
+	position: relative;
 	font-family: Lato, sans;
+}
+#zawiw-notification-placeholder {
+    z-index: 5000;
+    position: absolute;
+    display: none;
+    width: 100%;
+   	top: 10px;
+}
+#zawiw-chat-notification {
+	background-color: #333;
+	color: #fff;
+	margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+   	position: relative;
+    text-align: center;
+    padding: 3px;
+    border-radius: 8px;
+    opacity: 0.9;
 }
 
 #zawiw-chat {
@@ -40,6 +66,13 @@
 	color: #888;
 }
 
+.pdferror {
+	font-size: 120%;
+	font-weight: bold;
+	background-color: #fff777;
+	padding: 5px;
+}
+
 .zawiw-chat-message {
 	font-family: 'emoji';
 	font-size: 130%;
@@ -68,10 +101,11 @@
 {
 	float: left;
 }
-#zawiw_chat_download a
+#zawiw_chat_download > a
 {
 	display: block;
 	margin-top: 20px;
+	margin-bottom: 20px;
 }
 a.fa:before
 {
@@ -83,8 +117,28 @@ a.fa:before
 	overflow: hidden;
 	max-height: 0px;
 	transition: all 0.3s linear 0s;
+	padding-left: 20px;
 }
 
-#send.disabled{
-	background-color: #333;
+#wait
+{
+	transition: height 0.2s linear 0s;
+	height: 0px;
+	width: 0px;
 }
+#wait img
+{
+	height: 40px;
+	width: 40px;
+}
+
+.warning
+{
+	background-color: #ffffaa;
+}
+
+#download {
+	margin-top: 10px;
+}
+
+#
