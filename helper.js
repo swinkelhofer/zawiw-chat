@@ -146,7 +146,7 @@ function replaceEmojis()
 {
 	var str = jQuery('#msg').val();
 	str = str.replace("O:}", "\uD83D\uDE07");
-	str = str.replace("=:}", "\uD83D\uDE08");
+	str = str.replace(">:}", "\uD83D\uDE08");
 	str = str.replace(":-)", "\uD83D\uDE0A").replace(":)", "\uD83D\uDE0A");
 	str = str.replace(":-D", "\uD83D\uDE03").replace(":D", "\uD83D\uDE03");
 	str = str.replace(":'-D", "\uD83D\uDE02").replace(":'D", "\uD83D\uDE02");
