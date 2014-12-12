@@ -53,7 +53,7 @@ function getPDF()
 		}
 		else
 		{
-			jQuery('#pdfcontainer').append("<div class='pdferror'>Bitte Daten überprüfen</div>");
+			jQuery('#pdfcontainer').append("<div class='pdferror'>Input data not valid</div>");
 			jQuery('#from').addClass('warning');
 			jQuery('#to').addClass('warning');
 			jQuery('#wait').css('height','0px');
@@ -138,7 +138,7 @@ function notification()
 {
 	jQuery("zawiw-notification-placeholder").toggle();
 	jQuery("#zawiw-notification-placeholder").fadeIn(1);
-	jQuery("#zawiw-chat-notification").html("<b>Sie haben eine neue Nachricht</b>");
+	jQuery("#zawiw-chat-notification").html("<b>New message alert</b>");
 	jQuery("#zawiw-notification-placeholder").fadeOut(5000);
 }
 
