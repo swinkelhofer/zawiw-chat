@@ -16,7 +16,7 @@ function deleteOldPdfs()
 	        {
 	        	continue;
 	        }
-	        if (time() - $fileInfo->getCTime() >= 5*60)  //5 Minutes
+	        if (time() - $fileInfo->getCTime() >= 5*60 AND $fileInfo->getExtension() == "pdf")  //5 Minutes
 	        {
 	            unlink($fileInfo->getRealPath());
 	        }

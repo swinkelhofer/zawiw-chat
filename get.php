@@ -29,7 +29,7 @@ function zawiw_chat_shortcode()
 		</div>
 		<div class="submit_button">
 			<input type="hidden" name="submit" value="Senden" />
-			<input onClick="javascript: postMessage()" type="button" id="send" value="Senden" />
+			<input onClick="javascript: postMessage()" type="button" id="send" value="Send" />
 		</div>
 		<div id="zawiw_chat_download">
 			<a href="javascript: expand('#zawiw_chat_download_expandable')" class="fa fa-chevron-down">Create chat history</a>
