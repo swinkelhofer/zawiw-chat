@@ -24,12 +24,15 @@ function zawiw_chat_shortcode()
 <div id="zawiw_chat">
 	<form action="" id="form" method="post" enctype="application/x-www-form-urlencoded" accept-charset="UTF-8" autocomplete="off">
 		<?php wp_nonce_field( 'zawiw_chat' ); ?>
+		<div class="placeholder">
 		<div class="chat_input">
+			<div id="emoji_button" onClick="javascript: emojiList()">😈</div>
 			<input class="" type="text" name="msg" id="msg" placeholder="Type your message" />
+			<div class="submit_button one-third">
+				<input type="hidden" name="submit" value="Senden" />
+				<input onClick="javascript: postMessage()" type="button" id="send" value="Send" />
+			</div>
 		</div>
-		<div class="submit_button">
-			<input type="hidden" name="submit" value="Senden" />
-			<input onClick="javascript: postMessage()" type="button" id="send" value="Send" />
 		</div>
 		<div id="zawiw_chat_download">
 			<a href="javascript: expand('#zawiw_chat_download_expandable')" class="fa fa-chevron-down">Create chat history</a>

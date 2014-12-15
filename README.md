@@ -1,10 +1,12 @@
 zawiw-chat
 ==========
 
-A simple WordPress-Plugin chat
+A fancy WordPress-Plugin chat
 
 Changelog
 =========
+1.7
+	Added emoji-button to insert emojis
 1.6.1
 	Unified language in frontend
 1.6
