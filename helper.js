@@ -48,28 +48,28 @@ function emojiList()
 {
 	if(!jQuery('#emojiList').length)
 	{
-		jQuery('#zawiw-chat-view').append("<div id='emojiList'><div class='content'></div></div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \"O:}\")'>\uD83D\uDE07</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \">:}\")'>\uD83D\uDE08</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \":-)\")'>\uD83D\uDE0A</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \":-D\")'>\uD83D\uDE03</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \":&#39-D\")'>\uD83D\uDE02</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \"xD\")'>\uD83D\uDE06</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \"B-)\")'>\uD83D\uDE0E</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \";-)\")'>\uD83D\uDE09</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \":-P\")'>\uD83D\uDE0B</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \"xP\")'>\uD83D\uDE1D</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \":-O\")'>\uD83D\uDE31</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \"o.O\")'>\uD83D\uDE32</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \"|-*\")'>\uD83D\uDE1A</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \";-P\")'>\uD83D\uDE1C</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \":-*\")'>\uD83D\uDE18</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \":-|\")'>\uD83D\uDE10</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \"x(\")'>\uD83D\uDE23</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \":-(\")'>\uD83D\uDE1E</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \":&#39&#39&#39&#39-(\")'>\uD83D\uDE2D</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \":&#39-(\")'>\uD83D\uDE22</div>");
-		jQuery('#emojiList .content').append("<div class='quarter' onClick='copyEmoji(\"#msg\", \"*-*\")'>\uD83D\uDE04</div>");
+		jQuery('#zawiw-chat-view').append("<div id='emojiList' onselectstart=\"return false;\"><div class='content' onselectstart=\"return false;\"></div></div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \"O:}\")'>\uD83D\uDE07</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \">:}\")'>\uD83D\uDE08</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \":-)\")'>\uD83D\uDE0A</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \":-D\")'>\uD83D\uDE03</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \":&#39-D\")'>\uD83D\uDE02</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \"xD\")'>\uD83D\uDE06</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \"B-)\")'>\uD83D\uDE0E</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \";-)\")'>\uD83D\uDE09</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \":-P\")'>\uD83D\uDE0B</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \"xP\")'>\uD83D\uDE1D</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \":-O\")'>\uD83D\uDE31</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \"o.O\")'>\uD83D\uDE32</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \"|-*\")'>\uD83D\uDE1A</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \";-P\")'>\uD83D\uDE1C</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \":-*\")'>\uD83D\uDE18</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \":-|\")'>\uD83D\uDE10</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \"x(\")'>\uD83D\uDE23</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \":-(\")'>\uD83D\uDE1E</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \":&#39&#39&#39&#39-(\")'>\uD83D\uDE2D</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \":&#39-(\")'>\uD83D\uDE22</div>");
+		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \"*-*\")'>\uD83D\uDE0D</div>");
 		jQuery('#zawiw-chat-area, #msg, #send').bind("click", function() {
 			if(jQuery('#emojiList').css('display') != 'none')
 				jQuery('#emojiList').css('display', 'none');

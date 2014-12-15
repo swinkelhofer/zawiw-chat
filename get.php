@@ -27,7 +27,7 @@ function zawiw_chat_shortcode()
 		<?php wp_nonce_field( 'zawiw_chat' ); ?>
 		<div class="placeholder">
 		<div class="chat_input">
-			<div id="emoji_button" onClick="javascript: emojiList()">😈</div>
+			<div id="emoji_button" onClick="javascript: emojiList()" onselectstart="return false">😈</div>
 			<input class="" type="text" name="msg" id="msg" placeholder="Type your message" />
 			<div class="submit_button one-third">
 				<input type="hidden" name="submit" value="Senden" />
