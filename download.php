@@ -1,5 +1,5 @@
 <?php
-
+header('Content-Type: charset=utf-8');
 require_once("../../../wp-load.php");
 function generateRandomString($length = 10)
 {

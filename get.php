@@ -2,6 +2,7 @@
 add_shortcode('zawiw_chat', 'zawiw_chat_shortcode');
 add_action( 'wp_enqueue_scripts', 'zawiw_chat_queue_script' );
 add_action( 'wp_enqueue_scripts', 'zawiw_chat_queue_stylesheet' );
+header('Content-Type: charset=utf-8');
 function zawiw_chat_shortcode()
 {
 	if(!is_user_logged_in())
