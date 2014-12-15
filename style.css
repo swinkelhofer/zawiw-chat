@@ -88,7 +88,6 @@
 }
 
 .zawiw-chat-message {
-	font-family: 'emoji';
 	font-size: 130%;
 	background-color: white;
 	display: inline-block;
@@ -164,7 +163,6 @@ a.fa:before
 	height: 50px;
 	text-align: center;
 	position: absolute;
-	/*padding: 14px;*/
 	line-height: 2;
 	font-size: 170%;
 	border: 1px solid #999;
