@@ -5,6 +5,8 @@ A fancy WordPress-Plugin chat
 
 Changelog
 =========
+1.8
+	Added life search feature
 1.7.1
 	Bugfix in download.php, deleting pdfs
 1.7

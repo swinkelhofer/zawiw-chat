@@ -157,6 +157,9 @@ jQuery(document).ready(function(){
 	jQuery('#msg').bind("keypress", function() {
 		replaceEmojis();
 	});
+	jQuery('#search-filter').bind("keyup", function(){
+		searchtext();
+	});
         jQuery('#from').datetimepicker({
             lang:'de',
             format: 'd.m.Y H:i',
@@ -191,12 +194,21 @@ function notification()
 
 function searchtext()
 {
-	var searchValue = jQuery('#search-filter').val();
+	var searchValue = jQuery('#search-filter').val().toLowerCase();
 
-	jQuery('.msg_container').each(function(){
-		if(jQuery(this).html().indexOf(searchValue) > -1) {
-			//TODO handle found items
+	jQuery('.msg_container').each(function(index, elem){
+		if(searchValue == "") {
+			jQuery(elem).css('display', 'block');
 		}
+		// hide elements without matching in search
+		else if(jQuery(elem).text().toLowerCase().indexOf(searchValue) == -1) {
+			jQuery(elem).css('display', 'none');
+		}
+		else
+		{
+			jQuery(elem).css('display', 'block');
+		}
+		jQuery("#zawiw-chat-area").scrollTop(jQuery("#zawiw-chat-area")[0].scrollHeight);
 	});
 }
 
