@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: charset=utf-8');
+header('Content-Type: text/html; charset=utf-8');
 	mb_internal_encoding("UTF-8");
 	require_once("../../../wp-load.php");
 	if(!is_user_logged_in())
