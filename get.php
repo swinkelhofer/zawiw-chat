@@ -17,7 +17,7 @@ function zawiw_chat_shortcode()
 		<div id="zawiw-chat-notification">
 		</div>
 	</div>
-	<div id="zawiw-user-filter">
+	<div id="zawiw-search-filter">
 		<input class="" type="text" name="search-filter" id="search-filter" placeholder="Search ..." />
 	</div>
 <div id ="zawiw-chat-area">
