@@ -189,6 +189,17 @@ function notification()
 	jQuery("#zawiw-notification-placeholder").fadeOut(5000);
 }
 
+function searchtext()
+{
+	var searchValue = jQuery('#search-filter').val();
+
+	jQuery('.msg_container').each(function(){
+		if(jQuery(this).html().indexOf(searchValue) > -1) {
+			//TODO handle found items
+		}
+	});
+}
+
 function replaceEmojis()
 {
 	var str = jQuery('#msg').val();
