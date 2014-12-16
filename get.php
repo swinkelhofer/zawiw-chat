@@ -13,10 +13,13 @@ function zawiw_chat_shortcode()
 ?>
  <!-- html div bereich-->
 <div id="zawiw-chat-view">
-<div id="zawiw-notification-placeholder">
-<div id="zawiw-chat-notification">
-</div>
-</div>
+	<div id="zawiw-notification-placeholder">
+		<div id="zawiw-chat-notification">
+		</div>
+	</div>
+	<div id="zawiw-user-filter">
+		<input class="" type="text" name="user-filter" id="user-filter" placeholder="Search for user messages" />
+	</div>
 <div id ="zawiw-chat-area">
 
 </div>
@@ -48,7 +51,6 @@ function zawiw_chat_shortcode()
 				<input type="button" name="download" id="download" onClick="javascript: getPDF()" value="Create history file" />
 			</div>
 		</div>
-
 	</form>
 </div>
 

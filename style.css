@@ -6,6 +6,14 @@
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
+
+#zawiw-user-filter {
+	z-index: 5000;
+	position: absolute;
+	width: 25%;
+	right: 15px;
+}
+
 #zawiw-chat-view {
 	position: relative;
 	font-family: Lato, sans;
