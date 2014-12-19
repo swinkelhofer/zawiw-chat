@@ -1,30 +1,24 @@
 function replaceURLs(data)
 {
-	/*var pos = 0;
-	while((pos = data.indexOf("http://", pos+1)) != -1)
-	{
-		if(data.substring(pos-6, pos-1) != 'href=' && data.substring(pos-5, pos-1) != 'src=')
-		{
-			var text = data.substring(pos, data.indexOf('<', pos-1));
-			if(text.indexOf(' ') != -1)
-				text = data.substring(pos, data.indexOf(' ', pos));
-			data = data.slice(0, pos) + "<a href='" + text + "'>" + text + "</a>" + data.slice(pos + text.length);
-			pos += text.length*2+15;
-		}
-	}
-	while((pos = data.indexOf("https://", pos+1)) != -1)
-	{
-		if(data.substring(pos-6, pos-1) != 'href=' && data.substring(pos-5, pos-1) != 'src=')
-		{
-			var text = data.substring(pos, data.indexOf('<', pos-1));
-			if(text.indexOf(' ') != -1)
-				text = data.substring(pos, data.indexOf(' ', pos));
-			data = data.slice(0, pos) + "<a href='" + text + "'>" + text + "</a>" + data.slice(pos + text.length);
-			pos += text.length*2+15;
-		}
-	}*/
 	data = data.replace(/([^"'])(https?:\/\/[^< ]+)/g, '$1</span><a href="$2"><span>$2</span></a></span>');
 	return data;
+}
+
+function embedMedia()
+{
+	var a = jQuery('.zawiw-chat-message a');
+	a.each(function(index,elem) {
+		var prop = jQuery(elem).prop('href');
+		if(prop.search(/https?:\/\/www\.youtube.com/) != -1 && !jQuery(elem).parents('.msg_container').find('iframe').length)
+		{
+			prop = prop.replace(/https?.*\?v=(.*)/, '$1');
+			jQuery('<iframe width="350" height="250" class="embed" src="//www.youtube.com/embed/' + prop + '" frameborder="0" allowfullscreen></iframe>').insertAfter(jQuery(elem).parents('.zawiw-chat-message'));
+		}
+		else if(prop.search(/https?:\/\/.+\.(jpg|bmp|gif|png)/i) != -1 && !jQuery(elem).parents('.msg_container').find('img.embed').length)
+		{
+			jQuery('<img src="' + prop + '" height=250 class="embed" />').insertAfter(jQuery(elem).parents('.zawiw-chat-message'));
+		}
+	});
 }
 
 function insert()
@@ -50,6 +44,7 @@ function insert()
 	jQuery.post( "../wp-content/plugins/zawiw-chat/ajax.php", { lastpost: datestring }, function( data ) {
 		data = replaceURLs(data);
  		jQuery( "#zawiw-chat-area" ).append( data );
+ 		embedMedia();
  		if(jQuery("#zawiw-chat-area").scrollTop() == 0 || jQuery("#zawiw-chat-area").scrollTop() == tmp)
  			jQuery("#zawiw-chat-area").scrollTop(jQuery("#zawiw-chat-area")[0].scrollHeight);
 		window.setTimeout("appendChatItem(true)", 5000);
@@ -152,10 +147,10 @@ function appendChatItem(selfUpdate)
 			window.setTimeout("appendChatItem(true)", 5000);
 		data = replaceURLs(data);
  		jQuery( "#zawiw-chat-area" ).append( data );
-
+ 		embedMedia()
  		if(data.search("class=\"zawiw-chat-message not_own\"") != -1)
  			notification();
- 		if(jQuery("#zawiw-chat-area").prop('scrollTop') == tmp)
+ 		if(jQuery("#zawiw-chat-area").prop('scrollTop') <= tmp+10 || jQuery("#zawiw-chat-area").prop('scrollTop') >= tmp-10)
  			jQuery("#zawiw-chat-area").prop('scrollTop', jQuery("#zawiw-chat-area").prop('scrollHeight'));
 
 	});
