@@ -231,3 +231,7 @@ a.fa:before
 .msg_container {
 	margin-bottom: 30px;
 }
+
+.msg_container b {
+	color: #888;
+}

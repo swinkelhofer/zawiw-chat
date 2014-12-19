@@ -5,6 +5,8 @@ A fancy WordPress-Plugin chat
 
 Changelog
 =========
+1.8.2
+	Color and bold text for search
 1.8.1
 	Converts URLs to Links
 1.8

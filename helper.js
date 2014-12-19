@@ -228,19 +228,17 @@ function searchtext()
 	jQuery('.msg_container').each(function(index, elem){
 		if(searchValue == "") {
 			jQuery(elem).css('display', 'block');
+
+			jQuery(elem).find('span').each(function(subIndex, subElem){
+				jQuery(subElem).html(jQuery(subElem).text());
+			});
 		}
 		else if(jQuery(elem).text().toLowerCase().indexOf(searchValue) > -1) {
 			jQuery(elem).css('display', 'block');
-			/*
-			// highlight keyword
-			var keywordStart = jQuery(elem).text().toLowerCase().indexOf(searchValue);
-			var keywordEnd = keywordStart + keywordStart.length - 1;
-			var beforeMatch = jQuery(elem).text().slice(0, keywordStart);
-			var keywordMatch = jQuery(elem).text().slice(keywordStart, keywordEnd + 1);
-			var keywordAfterMatch = jQuery(elem).text().slice(keywordEnd + 1);
 
-			jQuery(elem).html(beforeMatch + "<b>" + keywordMatch + "</b>" + keywordAfterMatch);
-			*/
+			jQuery(elem).find('span').each(function(subIndex, subElem){
+				jQuery(subElem).html(jQuery(subElem).text().replace(searchValue, "<b>"+searchValue+"</b>"));
+			});
 		}
 		else
 		{
