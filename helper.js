@@ -1,6 +1,6 @@
 function replaceURLs(data)
 {
-	var pos = 0;
+	/*var pos = 0;
 	while((pos = data.indexOf("http://", pos+1)) != -1)
 	{
 		if(data.substring(pos-6, pos-1) != 'href=' && data.substring(pos-5, pos-1) != 'src=')
@@ -22,7 +22,8 @@ function replaceURLs(data)
 			data = data.slice(0, pos) + "<a href='" + text + "'>" + text + "</a>" + data.slice(pos + text.length);
 			pos += text.length*2+15;
 		}
-	}
+	}*/
+	data = data.replace(/([^"'])(https?:\/\/[^< ]+)/g, '$1</span><a href="$2"><span>$2</span></a></span>');
 	return data;
 }
 
@@ -225,7 +226,7 @@ function searchtext()
 {
 	var searchValueTmp = jQuery('#search-filter').val();
 	var searchValue = jQuery('#search-filter').val().toLowerCase();
-
+	//alert(jQuery('.msg_container').contents().filter(function() { return this.nodeType == 3; }));
 	jQuery('.msg_container').each(function(index, elem){
 		if(searchValue == "") {
 			jQuery(elem).css('display', 'block');
@@ -236,7 +237,6 @@ function searchtext()
 		}
 		else if(jQuery(elem).text().toLowerCase().indexOf(searchValue) > -1) {
 			jQuery(elem).css('display', 'block');
-
 			jQuery(elem).find('span').each(function(subIndex, subElem){
 				jQuery(subElem).html(jQuery(subElem).text().replace(new RegExp("("+searchValue+")", "gi"), '<b>$1</b>'));
 			});
