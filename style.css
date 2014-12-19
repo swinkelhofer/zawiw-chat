@@ -233,5 +233,5 @@ a.fa:before
 }
 
 .msg_container b {
-	color: #888;
+	color: #888 !important;
 }

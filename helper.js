@@ -223,6 +223,7 @@ function notification()
 
 function searchtext()
 {
+	var searchValueTmp = jQuery('#search-filter').val();
 	var searchValue = jQuery('#search-filter').val().toLowerCase();
 
 	jQuery('.msg_container').each(function(index, elem){
@@ -237,7 +238,7 @@ function searchtext()
 			jQuery(elem).css('display', 'block');
 
 			jQuery(elem).find('span').each(function(subIndex, subElem){
-				jQuery(subElem).html(jQuery(subElem).text().replace(searchValue, "<b>"+searchValue+"</b>"));
+				jQuery(subElem).html(jQuery(subElem).text().replace(new RegExp("("+searchValue+")", "gi"), '<b>$1</b>'));
 			});
 		}
 		else
