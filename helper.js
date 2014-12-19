@@ -229,13 +229,22 @@ function searchtext()
 		if(searchValue == "") {
 			jQuery(elem).css('display', 'block');
 		}
-		// hide elements without matching in search
-		else if(jQuery(elem).text().toLowerCase().indexOf(searchValue) == -1) {
-			jQuery(elem).css('display', 'none');
+		else if(jQuery(elem).text().toLowerCase().indexOf(searchValue) > -1) {
+			jQuery(elem).css('display', 'block');
+			/*
+			// highlight keyword
+			var keywordStart = jQuery(elem).text().toLowerCase().indexOf(searchValue);
+			var keywordEnd = keywordStart + keywordStart.length - 1;
+			var beforeMatch = jQuery(elem).text().slice(0, keywordStart);
+			var keywordMatch = jQuery(elem).text().slice(keywordStart, keywordEnd + 1);
+			var keywordAfterMatch = jQuery(elem).text().slice(keywordEnd + 1);
+
+			jQuery(elem).html(beforeMatch + "<b>" + keywordMatch + "</b>" + keywordAfterMatch);
+			*/
 		}
 		else
 		{
-			jQuery(elem).css('display', 'block');
+			jQuery(elem).css('display', 'none');
 		}
 		jQuery("#zawiw-chat-area").scrollTop(jQuery("#zawiw-chat-area")[0].scrollHeight);
 	});
