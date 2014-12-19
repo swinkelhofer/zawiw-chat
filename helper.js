@@ -1,3 +1,31 @@
+function replaceURLs(data)
+{
+	var pos = 0;
+	while((pos = data.indexOf("http://", pos+1)) != -1)
+	{
+		if(data.substring(pos-6, pos-1) != 'href=' && data.substring(pos-5, pos-1) != 'src=')
+		{
+			var text = data.substring(pos, data.indexOf('<', pos-1));
+			if(text.indexOf(' ') != -1)
+				text = data.substring(pos, data.indexOf(' ', pos));
+			data = data.slice(0, pos) + "<a href='" + text + "'>" + text + "</a>" + data.slice(pos + text.length);
+			pos += text.length*2+15;
+		}
+	}
+	while((pos = data.indexOf("https://", pos+1)) != -1)
+	{
+		if(data.substring(pos-6, pos-1) != 'href=' && data.substring(pos-5, pos-1) != 'src=')
+		{
+			var text = data.substring(pos, data.indexOf('<', pos-1));
+			if(text.indexOf(' ') != -1)
+				text = data.substring(pos, data.indexOf(' ', pos));
+			data = data.slice(0, pos) + "<a href='" + text + "'>" + text + "</a>" + data.slice(pos + text.length);
+			pos += text.length*2+15;
+		}
+	}
+	return data;
+}
+
 function insert()
 {
 	var date = new Date((new Date()).valueOf() - 604800000);
@@ -19,7 +47,7 @@ function insert()
 	var datestring = date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 	var tmp = jQuery("#zawiw-chat-area")[0].scrollHeight;
 	jQuery.post( "../wp-content/plugins/zawiw-chat/ajax.php", { lastpost: datestring }, function( data ) {
-		
+		data = replaceURLs(data);
  		jQuery( "#zawiw-chat-area" ).append( data );
  		if(jQuery("#zawiw-chat-area").scrollTop() == 0 || jQuery("#zawiw-chat-area").scrollTop() == tmp)
  			jQuery("#zawiw-chat-area").scrollTop(jQuery("#zawiw-chat-area")[0].scrollHeight);
@@ -121,6 +149,7 @@ function appendChatItem(selfUpdate)
 	jQuery.post( "../wp-content/plugins/zawiw-chat/ajax.php", { lastpost: timestamp }, function( data ) {
  		if(selfUpdate)
 			window.setTimeout("appendChatItem(true)", 5000);
+		data = replaceURLs(data);
  		jQuery( "#zawiw-chat-area" ).append( data );
 
  		if(data.search("class=\"zawiw-chat-message not_own\"") != -1)
