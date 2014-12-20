@@ -107,6 +107,12 @@
 	box-shadow: 2px 2px 2px rgba(50,50,50,.4);
 }
 
+.zawiw-chat-message a {
+	text-decoration: none;
+	color: inherit;
+	font-style: italic;
+}
+
 .zawiw-chat-message span {
 	display: inline;
 }
@@ -245,3 +251,57 @@ a.fa:before
 	box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
 
 }
+/*Christmas settings ;) */
+img.christmas {
+	width: 22px;
+	height: auto;
+	z-index: 4999;
+	margin-bottom: 3px;
+	margin-left: 5px;
+	margin-right: -28px;
+	position: relative;
+}
+
+i.christmas {
+	margin-right: 4px;
+}
+
+.zawiw-chat-message {
+	background-color: #AAFF77 !important;
+	color: #111 !important; /* because it's christmas */
+}
+#emoji_button {
+	background-color:#AAFF77 !important;
+	color: #111;
+}
+#emoji_button:before {
+
+	position: absolute;
+    content:"";
+    width:100%;
+    height:100%;
+    background-size: contain;
+	background: url('santa.png') !important;
+	background-size: 30px 30px !important;
+	background-repeat: no-repeat !important;
+	background-position: 16px 0px !important;
+	margin-left: -10px;
+	
+}
+#emojiList {
+	background-color: #AAFF77 !important;
+}
+#emojiList .quarter:before {
+	position: absolute;
+    content:"";
+    width:100%;
+    height:30px;
+    background-size: contain;
+	background: url('santa.png') !important;
+	background-size: 20px 20px !important;
+	background-repeat: no-repeat !important;
+	background-position: 16px 0px !important;
+	margin-left: -10px;
+}
+
+/* end of christmas settings */

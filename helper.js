@@ -1,6 +1,13 @@
 function replaceURLs(data)
 {
+	data = christmas(data); // Christmas settings ;)
 	data = data.replace(/([^"'])(https?:\/\/[^< ]+)/g, '$1</span><a href="$2"><span>$2</span></a></span>');
+	return data;
+}
+
+function christmas(data)
+{
+	data = data.replace(/(\uD83D.)/gi, '<img src="../wp-content/plugins/zawiw-chat/santa.png" class="christmas"><i class="christmas">$1</i>');
 	return data;
 }
 
@@ -150,7 +157,7 @@ function appendChatItem(selfUpdate)
  		embedMedia()
  		if(data.search("class=\"zawiw-chat-message not_own\"") != -1)
  			notification();
- 		if(jQuery("#zawiw-chat-area").prop('scrollTop') <= tmp+10 || jQuery("#zawiw-chat-area").prop('scrollTop') >= tmp-10)
+ 		if(jQuery("#zawiw-chat-area").prop('scrollTop') <= tmp+10 && jQuery("#zawiw-chat-area").prop('scrollTop') >= tmp-10)
  			jQuery("#zawiw-chat-area").prop('scrollTop', jQuery("#zawiw-chat-area").prop('scrollHeight'));
 
 	});
