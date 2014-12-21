@@ -211,8 +211,8 @@ a.fa:before
 
 #emojiList {
 	position: absolute;
-	top: 100%;
-	height: 0px;
+	top: 50%;
+	height: 50%;
 	transition: all 0.05s linear 0s;
 	border: 1px solid #999;
 	background-color: white;
@@ -229,6 +229,13 @@ a.fa:before
 	height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
+}
+
+#emojiList.invisible {
+	height: 0px;
+	top: 100%;
+	padding: 0px;
+	border: none;
 }
 
 .quarter {

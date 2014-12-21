@@ -71,10 +71,7 @@ function postMessage()
 function copyEmoji(elem, text)
 {
 	jQuery(elem).val(jQuery(elem).val()+text);
-	jQuery('#emojiList').css('height', '0px');
-	jQuery('#emojiList').css('top', '100%');
-	jQuery('#emojiList').css('padding', '0px');
-	jQuery('#emojiList').css('border', 'none');
+	jQuery('#emojiList').addClass('invisible');
 	jQuery(elem).focus();
 }
 
@@ -82,7 +79,7 @@ function emojiList()
 {
 	if(!jQuery('#emojiList').length)
 	{
-		jQuery('#zawiw-chat-view').append("<div id='emojiList' onselectstart=\"return false;\"><div class='content' onselectstart=\"return false;\"></div></div>");
+		jQuery('#zawiw-chat-view').append("<div id='emojiList' class='invisible' onselectstart=\"return false;\"><div class='content' onselectstart=\"return false;\"></div></div>");
 		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \"O:}\")'>\uD83D\uDE07</div>");
 		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \">:}\")'>\uD83D\uDE08</div>");
 		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \":-)\")'>\uD83D\uDE0A</div>");
@@ -104,35 +101,23 @@ function emojiList()
 		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \":&#39&#39&#39&#39-(\")'>\uD83D\uDE2D</div>");
 		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \":&#39-(\")'>\uD83D\uDE22</div>");
 		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \"*-*\")'>\uD83D\uDE0D</div>");
-		jQuery('#emojiList').css('height', '50%');
-		jQuery('#emojiList').css('top', '50%');
-		jQuery('#emojiList').css('padding', '20px');
-		jQuery('#emojiList').css('border', '1px solid #999');
 		jQuery('#zawiw-chat-area, #msg, #send').bind("click", function() {
 			if(jQuery('#emojiList').css('height') != '0px')
 			{
-				jQuery('#emojiList').css('height', '0px');
-				jQuery('#emojiList').css('top', '100%');
-				jQuery('#emojiList').css('padding', '0px');
-				jQuery('#emojiList').css('border', 'none');
+				jQuery('#emojiList').addClass('invisible');
 			}
 		});
+		jQuery('#emojiList').removeClass('invisible');
 	}
 	else
 	{
 		if(jQuery('#emojiList').css('height') != '0px')
 		{
-			jQuery('#emojiList').css('height', '0px');
-			jQuery('#emojiList').css('top', '100%');
-			jQuery('#emojiList').css('padding', '0px');
-			jQuery('#emojiList').css('border', 'none');
+			jQuery('#emojiList').addClass('invisible');
 		}
 		else
 		{
-			jQuery('#emojiList').css('height', '50%');
-			jQuery('#emojiList').css('top', '50%');
-			jQuery('#emojiList').css('padding', '20px');
-			jQuery('#emojiList').css('border', '1px solid #999');
+			jQuery('#emojiList').removeClass('invisible');
 		}
 	}
 }
