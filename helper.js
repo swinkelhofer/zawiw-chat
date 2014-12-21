@@ -71,7 +71,10 @@ function postMessage()
 function copyEmoji(elem, text)
 {
 	jQuery(elem).val(jQuery(elem).val()+text);
-	jQuery('#emojiList').css('display', 'none');
+	jQuery('#emojiList').css('height', '0px');
+	jQuery('#emojiList').css('top', '100%');
+	jQuery('#emojiList').css('padding', '0px');
+	jQuery('#emojiList').css('border', 'none');
 	jQuery(elem).focus();
 }
 
@@ -101,17 +104,36 @@ function emojiList()
 		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \":&#39&#39&#39&#39-(\")'>\uD83D\uDE2D</div>");
 		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \":&#39-(\")'>\uD83D\uDE22</div>");
 		jQuery('#emojiList .content').append("<div class='quarter' onselectstart=\"return false;\" onClick='copyEmoji(\"#msg\", \"*-*\")'>\uD83D\uDE0D</div>");
+		jQuery('#emojiList').css('height', '50%');
+		jQuery('#emojiList').css('top', '50%');
+		jQuery('#emojiList').css('padding', '20px');
+		jQuery('#emojiList').css('border', '1px solid #999');
 		jQuery('#zawiw-chat-area, #msg, #send').bind("click", function() {
-			if(jQuery('#emojiList').css('display') != 'none')
-				jQuery('#emojiList').css('display', 'none');
+			if(jQuery('#emojiList').css('height') != '0px')
+			{
+				jQuery('#emojiList').css('height', '0px');
+				jQuery('#emojiList').css('top', '100%');
+				jQuery('#emojiList').css('padding', '0px');
+				jQuery('#emojiList').css('border', 'none');
+			}
 		});
 	}
 	else
 	{
-		if(jQuery('#emojiList').css('display') != 'none')
-			jQuery('#emojiList').css('display', 'none');
+		if(jQuery('#emojiList').css('height') != '0px')
+		{
+			jQuery('#emojiList').css('height', '0px');
+			jQuery('#emojiList').css('top', '100%');
+			jQuery('#emojiList').css('padding', '0px');
+			jQuery('#emojiList').css('border', 'none');
+		}
 		else
-			jQuery('#emojiList').css('display','block');
+		{
+			jQuery('#emojiList').css('height', '50%');
+			jQuery('#emojiList').css('top', '50%');
+			jQuery('#emojiList').css('padding', '20px');
+			jQuery('#emojiList').css('border', '1px solid #999');
+		}
 	}
 }
 
@@ -254,6 +276,8 @@ function searchtext()
 function replaceEmojis()
 {
 	var str = jQuery('#msg').val();
+	if(str.search(/(:|;|xD|o\.O|x\(|\*-\*|\^-\^|\||B-\))/) == -1)
+		return;
 	str = str.replace("O:}", "\uD83D\uDE07");
 	str = str.replace(">:}", "\uD83D\uDE08");
 	str = str.replace(":-)", "\uD83D\uDE0A").replace(":)", "\uD83D\uDE0A");
