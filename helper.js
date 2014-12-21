@@ -7,7 +7,7 @@ function replaceURLs(data)
 
 function christmas(data)
 {
-	data = data.replace(/(\uD83D.)/gi, '<img src="../wp-content/plugins/zawiw-chat/santa.png" class="christmas"><i class="christmas">$1</i>');
+	data = data.replace(/(\uD83D.)/gi, '</span><span class="inlineEmoji">$1</span><span>');
 	return data;
 }
 
