@@ -283,6 +283,11 @@ a.fa:before
 	background-color:#88FF77 !important;
 	color: #111;
 }
+#emoji_button img {
+	margin-top: 8px;
+	width: 32px;
+	height: 32px;
+}
 #emoji_button:before {
 
 	position: absolute;
@@ -323,6 +328,12 @@ a.fa:before
 	background-repeat: no-repeat !important;
 	background-position: 16px 0px !important;
 	margin-left: -10px;
+}
+.emojiPNG {
+	width: 23px;
+	height: 23px;
+	margin-bottom: -3px;
+	margin-left: -3px;
 }
 
 /* end of christmas settings */

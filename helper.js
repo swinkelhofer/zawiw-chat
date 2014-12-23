@@ -1,8 +1,21 @@
-function replaceURLs(data)
-{
-	data = christmas(data); // Christmas settings ;)
-	data = data.replace(/([^"'])(https?:\/\/[^< ]+)/g, '$1</span><a href="$2"><span>$2</span></a></span>');
-	return data;
+function emojiSupported() {
+	//TODO: replace EMoji-Range with PNGs
+	var node = document.createElement('canvas');
+	if(node == null)
+		return false;
+	if (!node.getContext || !node.getContext('2d') || typeof node.getContext('2d').fillText !== 'function')
+	{
+		return false;
+	}
+	var ctx = node.getContext('2d');
+	ctx.rect(0,0,32,32);
+	ctx.fillStyle="white";
+	ctx.fill();
+	ctx.textBaseline = 'top';
+	ctx.fillStyle="black";
+	ctx.font = '32px Arial';
+	ctx.fillText('\ud83d\ude03', 0, 0);
+	return ctx.getImageData(12,12, 1, 1).data[0] === 0;
 }
 
 function christmas(data)
@@ -10,6 +23,21 @@ function christmas(data)
 	data = data.replace(/(\uD83D.)/gi, '</span><span class="inlineEmoji">$1</span><span>');
 	return data;
 }
+function encode_utf8(s)
+{
+	s = encodeURIComponent(s);
+	var splitted = s.split('%');
+	return "0x" + (((parseInt(splitted[1],16) & 0xf) << 18) | ((parseInt(splitted[2],16) & 0x3f) << 12) | ((parseInt(splitted[3],16) & 0x3f) << 6) | (parseInt(splitted[4],16) & 0x3f)).toString(16);
+}
+function replaceData(data)
+{
+	data = christmas(data); // Christmas settings ;)
+	if(!emojiSupported())	// Fallback for older browsers
+		data = data.replace(/(\uD83D.)/gi, function(e) { return '</span><img class="emojiPNG" src="../wp-content/plugins/zawiw-chat/emojis/'+ encode_utf8(e) +'.png" /><span>'; });
+	data = data.replace(/([^"'])(https?:\/\/[^< ]+)/g, '$1</span><a href="$2"><span>$2</span></a></span>');
+	return data;
+}
+
 
 function embedMedia()
 {
@@ -49,7 +77,7 @@ function insert()
 	var datestring = date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 	var tmp = jQuery("#zawiw-chat-area")[0].scrollHeight;
 	jQuery.post( "../wp-content/plugins/zawiw-chat/ajax.php", { lastpost: datestring }, function( data ) {
-		data = replaceURLs(data);
+		data = replaceData(data);
  		jQuery( "#zawiw-chat-area" ).append( data );
  		embedMedia();
  		if(jQuery("#zawiw-chat-area").scrollTop() == 0 || jQuery("#zawiw-chat-area").scrollTop() == tmp)
@@ -159,7 +187,7 @@ function appendChatItem(selfUpdate)
 	jQuery.post( "../wp-content/plugins/zawiw-chat/ajax.php", { lastpost: timestamp }, function( data ) {
  		if(selfUpdate)
 			window.setTimeout("appendChatItem(true)", 5000);
-		data = replaceURLs(data);
+		data = replaceData(data);
  		jQuery( "#zawiw-chat-area" ).append( data );
  		embedMedia()
  		if(data.search("class=\"zawiw-chat-message not_own\"") != -1)
@@ -199,28 +227,30 @@ jQuery(document).ready(function(){
 	jQuery('#search-filter').bind("keyup", function(){
 		searchtext();
 	});
-        jQuery('#from').datetimepicker({
-            lang:'de',
-            format: 'd.m.Y H:i',
-            timepicker:true,
-            step: 60,
-            defaultDate: false,
-            defaultTime: false,
-            allowBlank: true,
-            closeOnDateSelect:true
-
-        });
-        jQuery('#to').datetimepicker({
-            lang:'de',
-            format: 'd.m.Y H:i',
-            timepicker:true,
-            step: 60,
-            defaultDate: false,
-            defaultTime: false,
-            allowBlank: true,
-            closeOnDateSelect:true
-
-        })
+    jQuery('#from').datetimepicker({
+        lang:'de',
+        format: 'd.m.Y H:i',
+        timepicker:true,
+        step: 60,
+        defaultDate: false,
+        defaultTime: false,
+        allowBlank: true,
+        closeOnDateSelect:true
+    });
+    jQuery('#to').datetimepicker({
+        lang:'de',
+        format: 'd.m.Y H:i',
+        timepicker:true,
+        step: 60,
+        defaultDate: false,
+        defaultTime: false,
+        allowBlank: true,
+        closeOnDateSelect:true
+	});
+	if(!emojiSupported())	//Fallback for older browsers
+	{
+		jQuery('#emoji_button').html("<img src='../wp-content/plugins/zawiw-chat/emojis/0x1f608.png' />");
+	}
 });
 
 function notification()
