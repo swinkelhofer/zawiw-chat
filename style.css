@@ -1,5 +1,5 @@
 #zawiw-chat-area {
-	background-color: #F0F0F0;
+	/*background-color: #F0F0F0;*/
 	padding: 10px;
 	position: relative;
 	height:500px;
@@ -14,15 +14,15 @@
 	width: 25%;
 	min-width: 150px;
 	top: 15px;
-	right: 15px;
+	right: 20px;
 	box-shadow: 1px 1px 1px rgba(0,0,0,.4);
 }
-
 
 #zawiw-chat-view {
 	position: relative;
 	font-family: Lato, sans;
 }
+
 #zawiw-notification-placeholder {
     z-index: 5000;
     position: absolute;
@@ -30,6 +30,7 @@
     width: 100%;
    	top: 10px;
 }
+
 #zawiw-chat-notification {
 	background-color: #333;
 	color: #fff;
@@ -72,6 +73,7 @@
 	#msg {
 		padding-right: 16px !important;
 	}
+
 	#zawiw-search-filter {
 		z-index: 5000;
 		position: absolute;
@@ -138,10 +140,12 @@
 	margin-bottom: 5px;
 	box-shadow: 2px 2px 2px rgba(50,50,50,.4);
 }
+
 #zawiw_chat_download
 {
 	float: left;
 }
+
 #zawiw_chat_download > a
 {
 	display: block;
@@ -152,6 +156,7 @@ a.fa:before
 {
 	padding-right: 5px;
 }
+
 #zawiw_chat_download_expandable
 {
 	display: block;
@@ -167,6 +172,7 @@ a.fa:before
 	height: 0px;
 	width: 0px;
 }
+
 #wait img
 {
 	height: 40px;
@@ -200,10 +206,12 @@ a.fa:before
 .placeholder {
 	position: relative;
 }
+
 #emoji_button:hover {
 	cursor: pointer;
 	box-shadow: 1px 1px 2px rgba(50,50,50,.4);
 }
+
 #msg {
 	padding-left: 66px;
 	padding-right: 166px;
@@ -222,6 +230,7 @@ a.fa:before
 	font-size: 130%;
 	box-shadow: 1px 1px 2px rgba(50,50,50,.4);
 }
+
 #emojiList > div {
 	position: relative;
 	display: block;
@@ -249,6 +258,7 @@ a.fa:before
 	text-align: center;
 	cursor: pointer;
 }
+
 #emojiList .quarter:hover {
 	box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
 }
@@ -271,13 +281,14 @@ a.fa:before
 
 }
 /*Christmas settings ;) */
+/*
 .inlineEmoji {
 	margin-right: 4px;
 }
 
 .zawiw-chat-message {
 	background-color: #88FF77 !important;
-	color: #111 !important; /* because it's christmas */
+	color: #111 !important;
 }
 #emoji_button {
 	background-color:#88FF77 !important;
@@ -335,5 +346,26 @@ a.fa:before
 	margin-bottom: -3px;
 	margin-left: -3px;
 }
-
+*/
 /* end of christmas settings */
+
+/* new year settings */
+#blur {
+	background-color: #F0F0F0;
+	padding: 10px;
+	position: absolute;
+	width: 100%;
+	height:500px;
+	border: 1px solid #bbb;
+	background: url('newyear.png');
+	background-repeat: no-repeat !important;
+	background-size: contain;
+	background-position: center;
+	opacity: 0.5;
+	-webkit-filter: blur(2px);
+}
+
+.zawiw-chat-message {
+	background-color: #F0F0F0;
+}
+/* end of new year settings */

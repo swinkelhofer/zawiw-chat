@@ -18,6 +18,7 @@ function emojiSupported() {
 	return ctx.getImageData(12,12, 1, 1).data[0] === 0;
 }
 
+//christmas settings (emojis with santa hat) not used at the moment
 function christmas(data)
 {
 	data = data.replace(/(\uD83D.)/gi, '</span><span class="inlineEmoji">$1</span><span>');
@@ -31,7 +32,7 @@ function encode_utf8(s)
 }
 function replaceData(data)
 {
-	data = christmas(data); // Christmas settings ;)
+	//data = christmas(data); // Christmas settings ;)
 	if(!emojiSupported())	// Fallback for older browsers
 		data = data.replace(/(\uD83D.)/gi, function(e) { return '</span><img class="emojiPNG" src="../wp-content/plugins/zawiw-chat/emojis/'+ encode_utf8(e) +'.png" /><span>'; });
 	data = data.replace(/([^"'])(https?:\/\/[^< ]+)/g, '$1</span><a href="$2"><span>$2</span></a></span>');

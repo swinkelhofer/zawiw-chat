@@ -20,9 +20,10 @@ function zawiw_chat_shortcode()
 	<div id="zawiw-search-filter">
 		<input class="" type="text" name="search-filter" id="search-filter" placeholder="Search ..." />
 	</div>
-<div id ="zawiw-chat-area">
-
-</div>
+	<div id="blur">	
+	</div>
+	<div id ="zawiw-chat-area">
+	</div>
 </div>
 
 <div id="zawiw_chat">
