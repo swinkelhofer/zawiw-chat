@@ -361,7 +361,11 @@ a.fa:before
 	background-repeat: no-repeat !important;
 	background-size: contain;
 	background-position: center;
-	opacity: 0.5;
+	opacity: 0.3;
 	-webkit-filter: blur(2px);
+	-moz-filter: blur(2px);
+  	-o-filter: blur(2px);
+  	-ms-filter: blur(2px);
+  	filter: blur(2px);
 }
 /* end of new year settings */
