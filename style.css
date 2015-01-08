@@ -1,5 +1,5 @@
 #zawiw-chat-area {
-	/*background-color: #F0F0F0;*/
+	background-color: #F0F0F0;
 	padding: 10px;
 	position: relative;
 	height:500px;
@@ -350,6 +350,7 @@ a.fa:before
 /* end of christmas settings */
 
 /* new year settings */
+/*
 #blur {
 	background-color: #F0F0F0;
 	padding: 10px;
@@ -368,4 +369,5 @@ a.fa:before
   	-ms-filter: blur(2px);
   	filter: blur(2px);
 }
+*/
 /* end of new year settings */
