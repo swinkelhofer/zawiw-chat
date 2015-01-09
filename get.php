@@ -1,13 +1,38 @@
 <?php
+add_action('after_setup_theme', 'anonymous_login');
 add_shortcode('zawiw_chat', 'zawiw_chat_shortcode');
 add_action( 'wp_enqueue_scripts', 'zawiw_chat_queue_script' );
 add_action( 'wp_enqueue_scripts', 'zawiw_chat_queue_stylesheet' );
+
 header('Content-Type: text/html; charset=utf-8');
-function zawiw_chat_shortcode()
+
+function anonymous_login()
+{
+	global $wpdb;
+	$get_post = "";
+	$result = $wpdb->get_results("SELECT * FROM ".$wpdb->posts." WHERE post_name='".str_replace("/", "",$_SERVER['REQUEST_URI'])."'");
+
+	if(!empty($result))
+	{
+		$get_post = $result[0]->post_content;
+	}
+	if(preg_match('/^.*\[zawiw_chat.*?anonymous=[’"]?true.*?\].*$/', (string)$get_post) == 1)
+	{
+		$creds = array();
+		$creds['user_login'] = 'anonymous';
+		$creds['user_password'] = 'anonymous$123';
+		$creds['remember'] = true;
+		$user = wp_signon($creds, false);
+		wp_set_current_user($user->ID);
+	}
+}
+
+
+function zawiw_chat_shortcode($param)
 {
 	if(!is_user_logged_in())
 	{
-		echo "<div id='zawiw-chat-message'>Sie müssen angemeldet sein, um diese Funktion zu nutzen</div>";
+		echo "<div id='zawiw-chat-message'>Sie müssen angemeldet sein, um diese Funktion zu nutzen!</div>";
 		return;
 	}
 ?>
@@ -39,6 +64,18 @@ function zawiw_chat_shortcode()
 			</div>
 		</div>
 		</div>
+
+<?php
+ if(isset($GLOBALS['is_anonymous'])){
+ 		?>
+		<div id="anonymous_user"> 
+			<input id="pseudonym" type="text" name="pseudonym" placeholder="Type your name"/>
+		</div>
+		<?php
+	}
+	else {
+?>
+
 		<div id="zawiw_chat_download">
 			<a href="javascript: expand('#zawiw_chat_download_expandable')" class="fa fa-chevron-down">Create chat history</a>
 			<div id="zawiw_chat_download_expandable">
@@ -52,6 +89,7 @@ function zawiw_chat_shortcode()
 				<input type="button" name="download" id="download" onClick="javascript: getPDF()" value="Create history file" />
 			</div>
 		</div>
+		<?php } ?>
 	</form>
 </div>
 

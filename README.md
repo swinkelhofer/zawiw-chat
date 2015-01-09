@@ -5,6 +5,8 @@ A fancy WordPress-Plugin chat
 
 Changelog
 =========
+2.0
+	Added parameter 'anonymous' to chat via anonymous users
 1.9
 	Embeded media
 1.8.2

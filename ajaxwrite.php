@@ -1,5 +1,6 @@
 <?php
 
+mb_internal_encoding("UTF-8");
 require_once("../../../wp-load.php");
 function unset_post_escape()
 {
@@ -30,7 +31,14 @@ function write_db()
 	$timezone = new DateTimeZone('Europe/Berlin');
 	$dbdata['createDT'] = date_format(date_create("now", $timezone),'Y-m-d H:i:s');
 	$dbdata['userId'] = get_current_user_id();
-	$dbdata['message'] = isset( $_POST['msg'] ) ? sanitize_text_field(utf8_encode(escape($_POST['msg']))) : '';
+	global $current_user;
+	if($current_user->user_login == "anonymous")
+	{
+		$dbdata['message'] = isset( $_POST['msg'] ) ? sanitize_text_field(utf8_encode(escape($_POST['msg']))) : '';
+		$dbdata['message'] = "<pseudonym>".(isset( $_POST['pseudonym'] ) ? sanitize_text_field($_POST['pseudonym']) : '') . "</pseudonym>" . $dbdata['message'];
+	}
+	else
+		$dbdata['message'] = isset( $_POST['msg'] ) ? sanitize_text_field(utf8_encode(escape($_POST['msg']))) : '';
 	$wpdb->insert( $wpdb->get_blog_prefix().'zawiw_chat_data', $dbdata);
 	echo mysql_error();
 }
@@ -48,7 +56,6 @@ function zawiw_chat_backup_db()
 		$wpdb->delete( $wpdb->get_blog_prefix().'zawiw_chat_data', $zawiw_chat_backup_item);
 	}
 }
-
 if(!is_user_logged_in())
 {
 	echo "<div id='zawiw-chat-message'>Sie müssen angemeldet sein, um diese Funktion zu nutzen</div>";
@@ -56,8 +63,7 @@ if(!is_user_logged_in())
 }
 
 unset_post_escape();
-mb_internal_encoding("UTF-8");
-if(isset($_POST['submit']) && strlen($_POST['msg']) && check_admin_referer('zawiw_chat'))
+if(isset($_POST['submit']) && strlen($_POST['msg']) /*&& check_admin_referer('zawiw_chat')*/)
 {
 	write_db();
 	zawiw_chat_backup_db();

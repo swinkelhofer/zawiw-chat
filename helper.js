@@ -90,10 +90,26 @@ function insert()
 
 function postMessage()
 {
+	var errors = 0;
+	jQuery('#msg').removeClass("error");
+	jQuery('#pseudonym').removeClass("error");
+	if(jQuery('#msg').val() == "")
+	{
+		jQuery('#msg').addClass("error");
+		errors++;
+	}
+	if(jQuery('#pseudonym').val() == "")
+	{
+		jQuery('#pseudonym').addClass("error");
+		errors++;
+	}
+	if(errors > 0)
+		return;
 	jQuery.post('../wp-content/plugins/zawiw-chat/ajaxwrite.php', jQuery('#form').serialize(), function( data) {
 	
 	 	jQuery('#msg').val('');
 		appendChatItem(false);
+
 	});
 }
 
