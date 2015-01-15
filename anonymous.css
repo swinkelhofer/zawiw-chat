@@ -1,0 +1,15 @@
+#wpadminbar {
+	display: none;
+}
+
+.entry-header {
+	display: none;
+}
+
+header.site-header {
+	box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+}
+
+#pseudonym {
+	border: 1px solid #444 !important;
+}
