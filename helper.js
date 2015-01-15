@@ -105,12 +105,24 @@ function postMessage()
 	}
 	if(errors > 0)
 		return;
-	jQuery.post('../wp-content/plugins/zawiw-chat/ajaxwrite.php', jQuery('#form').serialize(), function( data) {
-	
-	 	jQuery('#msg').val('');
-		appendChatItem(false);
+	if(jQuery('#pseudonym') != null)
+	{
+		jQuery.post('../wp-content/plugins/zawiw-chat/ajaxwrite.php', jQuery('#form').serialize() +  '&pseudonym='+ jQuery('#pseudonym').val(), function( data) {
+		
+		 	jQuery('#msg').val('');
+			appendChatItem(false);
 
-	});
+		});
+	}
+	else
+	{
+		jQuery.post('../wp-content/plugins/zawiw-chat/ajaxwrite.php', jQuery('#form').serialize(), function( data) {
+		
+		 	jQuery('#msg').val('');
+			appendChatItem(false);
+
+		});
+	}
 }
 
 function copyEmoji(elem, text)

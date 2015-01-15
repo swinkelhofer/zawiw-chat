@@ -24,6 +24,7 @@ function anonymous_login()
 		$creds['remember'] = true;
 		$user = wp_signon($creds, false);
 		wp_set_current_user($user->ID);
+		$GLOBALS['is_anonymous'] = true;
 	}
 }
 
@@ -36,14 +37,26 @@ function zawiw_chat_shortcode($param)
 		return;
 	}
 ?>
- <!-- html div bereich-->
+
 <div id="zawiw-chat-view">
 	<div id="zawiw-notification-placeholder">
 		<div id="zawiw-chat-notification">
 		</div>
 	</div>
 	<div id="zawiw-search-filter">
+					<?php
+ if(isset($GLOBALS['is_anonymous'])){
+ 		?>
+		<div id="anonymous_user"> 
+			<input id="pseudonym" type="text" name="pseudonym" placeholder="Type your name"/>
+		</div>
+		<?php
+	}
+	else
+	{
+	?>
 		<input class="" type="text" name="search-filter" id="search-filter" placeholder="Search ..." />
+	<?php } ?>
 	</div>
 	<div id="blur">	
 	</div>
@@ -55,6 +68,7 @@ function zawiw_chat_shortcode($param)
 	<form action="" id="form" method="post" enctype="application/x-www-form-urlencoded" accept-charset="UTF-8" autocomplete="off">
 		<?php wp_nonce_field( 'zawiw_chat' ); ?>
 		<div class="placeholder">
+
 		<div class="chat_input">
 			<div id="emoji_button" onClick="javascript: emojiList()" onselectstart="return false">😈</div>
 			<input class="" type="text" name="msg" id="msg" placeholder="Type your message" />
@@ -66,14 +80,7 @@ function zawiw_chat_shortcode($param)
 		</div>
 
 <?php
- if(isset($GLOBALS['is_anonymous'])){
- 		?>
-		<div id="anonymous_user"> 
-			<input id="pseudonym" type="text" name="pseudonym" placeholder="Type your name"/>
-		</div>
-		<?php
-	}
-	else {
+	if(!isset($GLOBALS['is_anonymous'])){
 ?>
 
 		<div id="zawiw_chat_download">
@@ -101,8 +108,11 @@ function zawiw_chat_queue_stylesheet()
 	if(!has_shortcode($post->post_content, 'zawiw_chat'))	//Loads stylesheets only if shortcode exists
 		return;
     wp_enqueue_style( 'zawiw_chat_style', plugins_url( 'style.css', __FILE__ ) );
+    global $current_user;
+    if($current_user->user_login == "anonymous")
+	    wp_enqueue_style( 'zawiw_chat_anonymous_style', plugins_url( 'anonymous.css', __FILE__ ) );
     wp_enqueue_style( 'font_awesome4.2', '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' );
-    wp_enqueue_style( 'lato_font', 'http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' );
+    wp_enqueue_style( 'lato_font', 'https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' );
 	wp_enqueue_style( 'datetimepickercss', plugins_url( 'datetimepicker/jquery.datetimepicker.css', __FILE__ ) );
 
 }
