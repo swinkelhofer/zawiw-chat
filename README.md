@@ -1,4 +1,4 @@
-zawiw-chat
+<pre>zawiw-chat
 ==========
 
 A fancy WordPress-Plugin chat
@@ -37,3 +37,4 @@ Changelog
 	Beautify name rendering
 1.0
 	Simple Wordpress Chat created
+</pre>
