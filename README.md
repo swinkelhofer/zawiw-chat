@@ -5,6 +5,10 @@ A fancy WordPress-Plugin chat
 
 Changelog
 =========
+3.1
+	Added utf-8 support for websockets
+3.0
+	Added websocket support
 2.0
 	Added parameter 'anonymous' to chat via anonymous users
 1.9

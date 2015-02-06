@@ -27,7 +27,7 @@
 			echo "<div class=\"msg_container\"><div><a href=\"". bp_core_get_user_domain($userdata->ID) . "\" style=\"pointer-events: none;\" class=\"zawiw-chat-avatar-user\">" . bp_core_fetch_avatar(array( 'item_id' => $userdata->ID, 'type' => 'full', 'width' => '32px')) . "<span class=\"zawiw-chat-user\">" .  $pseudonym . "</span></a></div>";
 			echo "<div class=\"zawiw-chat-datetime\"><span>" . date_format( date_create($chat_item['createDT']), 'd.m.Y H:i'). "</span></div>";
 			
-			echo "<div class=\"zawiw-chat-message\"><span>" . utf8_decode(preg_replace('/<pseudonym>.*?<\/pseudonym>/', "", $chat_item['message'])) . "<span></div></div>";
+			echo "<div class=\"zawiw-chat-message\"><span>" . utf8_decode(preg_replace('/<pseudonym>.*?<\/pseudonym>/', "", $chat_item['message'])) . "</span></div></div>";
 		}
 	}
 	if (sizeof($zawiw_chat_item) == 0)

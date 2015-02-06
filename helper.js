@@ -78,7 +78,7 @@ function insert()
 	var datestring = date.getFullYear() + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 	var tmp = jQuery("#zawiw-chat-area")[0].scrollHeight;
 	jQuery.post( "../wp-content/plugins/zawiw-chat/ajax.php", { lastpost: datestring }, function( data ) {
-		data = replaceData(data);
+		data = replaceData(decodeURIComponent(data));
  		jQuery( "#zawiw-chat-area" ).append( data );
  		embedMedia();
  		if(jQuery("#zawiw-chat-area").scrollTop() == 0 || jQuery("#zawiw-chat-area").scrollTop() == tmp)
@@ -90,6 +90,18 @@ function insert()
 
 function postMessage()
 {
+	//TODO redirect to sendWsMessage() if Websocket is supported else fallback
+	  if( typeof(WebSocket) != "function" ) {
+	    //jQuery("#zawiw-chat-area").html("<h1>Error</h1><p>Your browser does not support HTML5 Web Sockets. Try Google Chrome instead.</p>");
+	  	// no websocket supported fallback to ajax
+	  }
+	  else {
+	  	//jQuery("#zawiw-chat-area").html("<p>Gratulations! your browser supports websockets. And you can enjoy fancy features</p>");
+	  	// Here use the websocket now
+	  	sendWsMessage();
+	  	return;
+	  }
+
 	var errors = 0;
 	jQuery('#msg').removeClass("error");
 	jQuery('#pseudonym').removeClass("error");
@@ -105,6 +117,7 @@ function postMessage()
 	}
 	if(errors > 0)
 		return;
+	jQuery('#msg').val(encodeURIComponent(jQuery('#msg').val()));
 	if(jQuery('#pseudonym') != null)
 	{
 		jQuery.post('../wp-content/plugins/zawiw-chat/ajaxwrite.php', jQuery('#form').serialize() +  '&pseudonym='+ jQuery('#pseudonym').val(), function( data) {
@@ -116,7 +129,7 @@ function postMessage()
 	}
 	else
 	{
-		jQuery.post('../wp-content/plugins/zawiw-chat/ajaxwrite.php', jQuery('#form').serialize(), function( data) {
+		jQuery.post('../wp-content/plugins/zawiw-chat/ajaxwrite.php',  jQuery('#form').serialize(), function( data) {
 		
 		 	jQuery('#msg').val('');
 			appendChatItem(false);
@@ -216,7 +229,7 @@ function appendChatItem(selfUpdate)
 	jQuery.post( "../wp-content/plugins/zawiw-chat/ajax.php", { lastpost: timestamp }, function( data ) {
  		if(selfUpdate)
 			window.setTimeout("appendChatItem(true)", 5000);
-		data = replaceData(data);
+		data = replaceData(decodeURIComponent(data));
  		jQuery( "#zawiw-chat-area" ).append( data );
  		embedMedia()
  		if(data.search("class=\"zawiw-chat-message not_own\"") != -1)
@@ -249,7 +262,16 @@ function startTimer()
 }
 
 jQuery(document).ready(function(){
-	startTimer();
+	//TODO redirect to sendWsMessage() if Websocket is supported else fallback
+	  if( typeof(WebSocket) == "function" ) {
+	    //jQuery("#zawiw-chat-area").html("<h1>Error</h1><p>Your browser does not support HTML5 Web Sockets. Try Google Chrome instead.</p>");
+	  	// no websocket supported fallback to ajax
+	  	init();
+	  }
+	  else
+	  {
+		startTimer();
+	  }
 	jQuery('#msg').bind("keypress", function() {
 		replaceEmojis();
 	});

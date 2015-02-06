@@ -34,11 +34,11 @@ function write_db()
 	global $current_user;
 	if($current_user->user_login == "anonymous")
 	{
-		$dbdata['message'] = isset( $_POST['msg'] ) ? sanitize_text_field(utf8_encode(escape($_POST['msg']))) : '';
+		$dbdata['message'] = isset( $_POST['msg'] ) ? (escape($_POST['msg'])) : '';
 		$dbdata['message'] = "<pseudonym>".(isset( $_POST['pseudonym'] ) ? sanitize_text_field($_POST['pseudonym']) : '') . "</pseudonym>" . $dbdata['message'];
 	}
 	else
-		$dbdata['message'] = isset( $_POST['msg'] ) ? sanitize_text_field(utf8_encode(escape($_POST['msg']))) : '';
+		$dbdata['message'] = isset( $_POST['msg'] ) ? (escape($_POST['msg'])) : '';
 	$wpdb->insert( $wpdb->get_blog_prefix().'zawiw_chat_data', $dbdata);
 	echo mysql_error();
 }

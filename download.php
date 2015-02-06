@@ -50,7 +50,7 @@ foreach ($zawiw_chat_item as $chat_item)
 	$userdata = get_user_by( 'id', $chat_item['userId'] );
 	$mpdf->WriteHTML("<div style='padding-left: 8px; font-family: emoji;'>" .  $userdata->display_name . "</div>");
 	$mpdf->WriteHTML("<div style='padding-left: 8px; font-family: emoji;'>" . date_format( date_create($chat_item['createDT']), 'd.m.Y H:i') . "</div>");
-	$mpdf->WriteHTML("<div style=\"font-size: 16pt; font-family:emoji; background-image: linear-gradient(#D5D5D5 0%, #EEE 100%); border-radius:8px; padding: 8px; margin-bottom: 10px; box-shadow: 2px 2px 2px rgba(50,50,50,.4);\">" . utf8_decode($chat_item['message']) . "</div><br />");
+	$mpdf->WriteHTML("<div style=\"font-size: 16pt; font-family:emoji; background-image: linear-gradient(#D5D5D5 0%, #EEE 100%); border-radius:8px; padding: 8px; margin-bottom: 10px; box-shadow: 2px 2px 2px rgba(50,50,50,.4);\">" . /*utf8_decode*/(urldecode($chat_item['message'])) . "</div><br />");
 }
 $mpdf->WriteHTML("</body></html>");
 $file = generateRandomString() . ".pdf";

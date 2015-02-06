@@ -6,6 +6,16 @@ add_action( 'wp_enqueue_scripts', 'zawiw_chat_queue_stylesheet' );
 
 header('Content-Type: text/html; charset=utf-8');
 
+function processCookies()
+{
+	$str = "";
+	foreach ($_COOKIE as $cookie => $value) 
+	{
+		$str .= $cookie . ":" . $value . ";";  	
+	}
+	return $str;
+}
+
 function anonymous_login()
 {
 	global $wpdb;
@@ -38,6 +48,10 @@ function zawiw_chat_shortcode($param)
 	}
 ?>
 
+
+<input type="hidden" id="prefix" value="<?php global $wpdb; echo $wpdb->get_blog_prefix();?>" />
+<input type="hidden" id="cookies" value="<?php echo processCookies();?>" />
+<input type="hidden" id="userId" value="<?php echo get_current_user_id();?>" />
 <div id="zawiw-chat-view">
 	<div id="zawiw-notification-placeholder">
 		<div id="zawiw-chat-notification">
@@ -58,8 +72,7 @@ function zawiw_chat_shortcode($param)
 		<input class="" type="text" name="search-filter" id="search-filter" placeholder="Search ..." />
 	<?php } ?>
 	</div>
-	<div id="blur">	
-	</div>
+	<div id="blur"></div>
 	<div id ="zawiw-chat-area">
 	</div>
 </div>
@@ -100,6 +113,7 @@ function zawiw_chat_shortcode($param)
 	</form>
 </div>
 
+
 <?php
 }
 function zawiw_chat_queue_stylesheet()
@@ -123,6 +137,7 @@ function zawiw_chat_queue_script()
 		return;
     wp_enqueue_script( 'jquery' );
     wp_enqueue_script( 'zawiw_chat_script', plugins_url( 'helper.js', __FILE__ ) );
+    wp_enqueue_script( 'websocket_script', plugins_url( 'websocket.js',__FILE__) );
 	wp_enqueue_script( 'datetimepickerjs', plugins_url( 'datetimepicker/jquery.datetimepicker.js', __FILE__ ) );
 }
 ?>

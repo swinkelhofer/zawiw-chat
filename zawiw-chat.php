@@ -3,7 +3,7 @@
 Plugin Name: Zawiw Chat
 Plgin URI:
 Description: Fancy Wordpress Chat
-Version: 2.0
+Version: 3.1
 Author: Georg Eisenhart, Sascha Winkelhofer
 Author URI:
 License: MIT
