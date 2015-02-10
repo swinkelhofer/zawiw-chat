@@ -1,5 +1,6 @@
 #!bin/sh
 
+#edit this to your destination and eventually set to mv
 cp -r websocket ../../../../files
 
 echo "Enter username for database: "
@@ -11,6 +12,7 @@ read domain
 echo "\nEnter port for websocket: "
 read port
 
+#edit destination
 sed -i -e "s:web10:$username:g" -e "s:FD26Ur2k:$password:g" -e "s:9999:$port:g" ../../../../files/websocket/server.php
 sed -i -e "s:mirror.forschendes-lernen.de:$domain:g" -e "s:9999:$port:g" websocket.js
 

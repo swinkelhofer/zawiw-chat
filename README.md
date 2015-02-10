@@ -2,9 +2,13 @@
 ==========
 
 A fancy WordPress-Plugin chat
+To install on other Servers configure the install.sh wich moves the websocket folder to
+an unaccesible folder from the web and sets the access variables.
 
 Changelog
 =========
+3.1.1
+	Added install script for our servers
 3.1
 	Added utf-8 support for websockets
 3.0
