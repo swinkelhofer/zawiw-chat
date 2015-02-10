@@ -1,10 +1,11 @@
 <?php
 
 define('WP_INSTALLING', true);
-require_once('./websockets.php');
+ini_set('mysqli.reconnect', 1);
+require_once(dirname(__FILE__).'/websockets.php');
 
 // MySQL database connection to wrppress
-$db = mysqli_connect("localhost", "web10", "FD26Ur2k", "usr_web10_1");
+$db = mysqli_connect("0.0.0.0", "web10", "FD26Ur2k", "usr_web10_1");
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -33,8 +34,9 @@ class BroadcastWebSocketServer extends WebSocketServer
 				$user->authentified = true;
 				global $db;
 				//echo "Users: " . count($this->users) . "\n";
+				mysqli_ping($db);
 				array_push($this->users, $user);
-				$sql = "SELECT * FROM " . $prefix . "zawiw_chat_data";
+				$sql = "SELECT * FROM " . $prefix . "zawiw_chat_data ORDER BY createDT ASC";
 				echo $sql . "\n";
 				$result = mysqli_query($db, $sql);
 
@@ -78,7 +80,7 @@ class BroadcastWebSocketServer extends WebSocketServer
 			$_COOKIE[$key_value[0]] = $key_value[1];
 		}
 		global $wpdb;
-		require_once("../../html/wp-load.php");
+		require_once(dirname(__FILE__)."/../../html/wp-load.php");
 
 		if(is_user_logged_in())
 		{

@@ -124,7 +124,7 @@ function zawiw_chat_queue_stylesheet()
     wp_enqueue_style( 'zawiw_chat_style', plugins_url( 'style.css', __FILE__ ) );
     global $current_user;
     if($current_user->user_login == "anonymous")
-	    wp_enqueue_style( 'zawiw_chat_anonymous_style', plugins_url( 'anonymous.css', __FILE__ ) );
+	wp_enqueue_style( 'zawiw_chat_anonymous_style', plugins_url( 'anonymous.css', __FILE__ ) );
     wp_enqueue_style( 'font_awesome4.2', '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' );
     wp_enqueue_style( 'lato_font', 'https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' );
 	wp_enqueue_style( 'datetimepickercss', plugins_url( 'datetimepicker/jquery.datetimepicker.css', __FILE__ ) );

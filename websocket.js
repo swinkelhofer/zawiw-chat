@@ -4,7 +4,7 @@ var socket;
 function init()
 {
 	// SET THIS TO YOUR SERVER
-	var host = "ws://mirror.forschendes-lernen.de:10000/";
+	var host = "ws://mirror.forschendes-lernen.de:9999/";
 	try
 	{
 		socket = new WebSocket(host);
@@ -16,6 +16,7 @@ function init()
 		socket.onclose   = function(msg)
 		{
 			log("Disconnected - status " + this.readyState + " - Try to reconnect");
+
 			reconnect();
 		};
 		socket.onopen = function()
