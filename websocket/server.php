@@ -146,7 +146,7 @@ class BroadcastWebSocketServer extends WebSocketServer
 	}
 }
 
-$webserver = new BroadcastWebSocketServer("0.0.0.0","10000");
+$webserver = new BroadcastWebSocketServer("0.0.0.0","9999");
 
 try
 {
