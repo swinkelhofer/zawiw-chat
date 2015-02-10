@@ -1,36 +1,58 @@
 var socket;
-
+var checkConnection = 0;
 
 function init()
 {
-	// SET THIS TO YOUR SERVER
-	var host = "ws://mirror.forschendes-lernen.de:9999/";
-	try
+
+	if (checkConnection < 10 ){
+		// SET THIS TO YOUR SERVER
+		var host = "ws://mirror.forschendes-lernen.de:9999/";
+		try
+		{	
+			socket = new WebSocket(host);
+			socket.onmessage = function(msg)
+			{
+				jQuery("#zawiw-chat-area").append(decodeURIComponent(msg.data));
+
+			};
+			socket.onclose   = function(msg)
+			{
+				log("Disconnected - status " + this.readyState + " - Try to reconnect");
+				checkConnection = checkConnection + 1;
+				reconnect();
+			};
+			socket.onopen = function()
+			{
+				jQuery('#zawiw-chat-area').empty();
+				var cookieString = jQuery("#cookies").val();
+				var prefix = jQuery("#prefix").val();
+				socket.send('<prefix>' + prefix + '</prefix>' + cookieString);
+			};
+		}
+		catch(ex)
+		{
+			checkConnection = checkConnection + 1;
+			log(ex);
+		}
+	}
+	else
 	{
-		socket = new WebSocket(host);
 		socket.onmessage = function(msg)
 		{
-			jQuery("#zawiw-chat-area").append(decodeURIComponent(msg.data));
-
+			return;
 		};
 		socket.onclose   = function(msg)
 		{
-			log("Disconnected - status " + this.readyState + " - Try to reconnect");
-
-			reconnect();
+			log("Fall back to ajax" + this.readyState);
+			return;
 		};
 		socket.onopen = function()
 		{
-			jQuery('#zawiw-chat-area').empty();
-			var cookieString = jQuery("#cookies").val();
-			var prefix = jQuery("#prefix").val();
-			socket.send('<prefix>' + prefix + '</prefix>' + cookieString);
+			return;
 		};
-	}
-	catch(ex)
-	{
-		log(ex);
-	}
+		startTimer();
+		return;
+	}  	
 	
 }
 

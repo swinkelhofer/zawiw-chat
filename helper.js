@@ -79,7 +79,7 @@ function insert()
 	var tmp = jQuery("#zawiw-chat-area")[0].scrollHeight;
 	jQuery.post( "../wp-content/plugins/zawiw-chat/ajax.php", { lastpost: datestring }, function( data ) {
 		data = replaceData(decodeURIComponent(data));
- 		jQuery( "#zawiw-chat-area" ).append( data );
+ 		jQuery( "#zawiw-chat-area" ).html( data );
  		embedMedia();
  		if(jQuery("#zawiw-chat-area").scrollTop() == 0 || jQuery("#zawiw-chat-area").scrollTop() == tmp)
  			jQuery("#zawiw-chat-area").scrollTop(jQuery("#zawiw-chat-area")[0].scrollHeight);
@@ -91,11 +91,12 @@ function insert()
 function postMessage()
 {
 	//TODO redirect to sendWsMessage() if Websocket is supported else fallback
-	  if( typeof(WebSocket) != "function" ) {
+	  if(socket.readyState == 3 || typeof(WebSocket) != "function" ) {
 	    //jQuery("#zawiw-chat-area").html("<h1>Error</h1><p>Your browser does not support HTML5 Web Sockets. Try Google Chrome instead.</p>");
 	  	// no websocket supported fallback to ajax
 	  }
-	  else {
+	  else 
+	  {
 	  	//jQuery("#zawiw-chat-area").html("<p>Gratulations! your browser supports websockets. And you can enjoy fancy features</p>");
 	  	// Here use the websocket now
 	  	sendWsMessage();
@@ -263,7 +264,7 @@ function startTimer()
 
 jQuery(document).ready(function(){
 	//TODO redirect to sendWsMessage() if Websocket is supported else fallback
-	  if( typeof(WebSocket) == "function" ) {
+	  if(typeof(WebSocket) == "function") {
 	    //jQuery("#zawiw-chat-area").html("<h1>Error</h1><p>Your browser does not support HTML5 Web Sockets. Try Google Chrome instead.</p>");
 	  	// no websocket supported fallback to ajax
 	  	init();

@@ -7,6 +7,8 @@ an unaccesible folder from the web and sets the access variables.
 
 Changelog
 =========
+3.1.2
+	Added ajax fallback
 3.1.1
 	Added install script for our servers
 3.1

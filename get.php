@@ -84,7 +84,7 @@ function zawiw_chat_shortcode($param)
 
 		<div class="chat_input">
 			<div id="emoji_button" onClick="javascript: emojiList()" onselectstart="return false">😈</div>
-			<input class="" type="text" name="msg" id="msg" placeholder="Type your message" />
+			<input class="" type="text" name="msg" id="msg" onKeyPress="if(event.keyCode==13) postMessage();" placeholder="Type your message" />
 			<div class="submit_button one-third">
 				<input type="hidden" name="submit" value="Senden" />
 				<input onClick="javascript: postMessage()" type="button" id="send" value="Send" />
