@@ -12,8 +12,9 @@ function init()
 			socket = new WebSocket(host);
 			socket.onmessage = function(msg)
 			{
-				jQuery("#zawiw-chat-area").append(decodeURIComponent(msg.data));
-
+				data = replaceData(decodeURIComponent(msg.data));
+				jQuery("#zawiw-chat-area").append(data);
+				embedMedia();
 			};
 			socket.onclose   = function(msg)
 			{

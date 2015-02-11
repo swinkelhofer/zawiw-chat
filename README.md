@@ -7,6 +7,8 @@ an unaccesible folder from the web and sets the access variables.
 
 Changelog
 =========
+3.1.3
+	Embedded media support
 3.1.2
 	Added ajax fallback
 3.1.1
