@@ -28,6 +28,7 @@ function init()
 				var cookieString = jQuery("#cookies").val();
 				var prefix = jQuery("#prefix").val();
 				socket.send('<prefix>' + prefix + '</prefix>' + cookieString);
+				checkConnection = 0;
 			};
 		}
 		catch(ex)
