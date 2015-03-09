@@ -15,6 +15,12 @@ function init()
 				data = replaceData(decodeURIComponent(msg.data));
 				jQuery("#zawiw-chat-area").append(data);
 				embedMedia();
+				var tmp = jQuery("#zawiw-chat-area")[0].scrollHeight;
+				if(jQuery("#zawiw-chat-area").scrollTop() == 0 || jQuery("#zawiw-chat-area").scrollTop() == tmp)
+				{
+ 					jQuery("#zawiw-chat-area").scrollTop(jQuery("#zawiw-chat-area")[0].scrollHeight);
+ 				}
+
 			};
 			socket.onclose   = function(msg)
 			{
