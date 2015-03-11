@@ -2,7 +2,7 @@
 /*
 Plugin Name: Zawiw Chat
 Plgin URI:
-Description: Fancy Wordpress Chat
+Description: Wordpress Chatroom with Websockets
 Version: 3.1.3
 Author: Georg Eisenhart, Sascha Winkelhofer
 Author URI:

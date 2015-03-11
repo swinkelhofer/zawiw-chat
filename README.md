@@ -1,7 +1,7 @@
 <pre>zawiw-chat
 ==========
 
-A fancy WordPress-Plugin chat
+A fancy WordPress-Plugin chat with websocket support.
 To install on other Servers configure the install.sh wich moves the websocket folder to
 an unaccesible folder from the web and sets the access variables.
 

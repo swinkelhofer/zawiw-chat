@@ -1,3 +1,6 @@
+/*
+ * if emojis are not supported they will be replaced with png emojis
+*/
 function emojiSupported() {
 	//TODO: replace EMoji-Range with PNGs
 	var node = document.createElement('canvas');
@@ -24,12 +27,17 @@ function christmas(data)
 	data = data.replace(/(\uD83D.)/gi, '</span><span class="inlineEmoji">$1</span><span>');
 	return data;
 }
+
 function encode_utf8(s)
 {
 	s = encodeURIComponent(s);
 	var splitted = s.split('%');
 	return "0x" + (((parseInt(splitted[1],16) & 0xf) << 18) | ((parseInt(splitted[2],16) & 0x3f) << 12) | ((parseInt(splitted[3],16) & 0x3f) << 6) | (parseInt(splitted[4],16) & 0x3f)).toString(16);
 }
+
+/*
+ * replaces characters with supoorted emojis
+*/
 function replaceData(data)
 {
 	//data = christmas(data); // Christmas settings ;)
@@ -39,7 +47,9 @@ function replaceData(data)
 	return data;
 }
 
-
+/*
+ * nice view for pictures and youtube links
+*/
 function embedMedia()
 {
 	var a = jQuery('.zawiw-chat-message a');
@@ -57,6 +67,9 @@ function embedMedia()
 	});
 }
 
+/*
+ * inserts chatmessage in #zawiw-chat-area
+*/
 function insert()
 {
 	var date = new Date((new Date()).valueOf() - 604800000);
@@ -88,17 +101,17 @@ function insert()
 
 }
 
+/*
+ * this function is called when a message is sent
+*/
 function postMessage()
 {
-	//TODO redirect to sendWsMessage() if Websocket is supported else fallback
 	  if(socket.readyState == 3 || typeof(WebSocket) != "function" ) {
-	    //jQuery("#zawiw-chat-area").html("<h1>Error</h1><p>Your browser does not support HTML5 Web Sockets. Try Google Chrome instead.</p>");
-	  	// no websocket supported fallback to ajax
+	  	//no websocket support fallback to AJAX
 	  }
 	  else 
 	  {
-	  	//jQuery("#zawiw-chat-area").html("<p>Gratulations! your browser supports websockets. And you can enjoy fancy features</p>");
-	  	// Here use the websocket now
+	  	// websockets are supported
 	  	sendWsMessage();
 	  	return;
 	  }
@@ -193,6 +206,9 @@ function emojiList()
 	}
 }
 
+/*
+ * function for chathistory pdf download
+*/
 function getPDF()
 {
 	jQuery('#pdfcontainer').empty();
@@ -219,6 +235,9 @@ function getPDF()
 
 }
 
+/*
+ * appends new chatmessage in #zawiw-chat-area
+*/
 function appendChatItem(selfUpdate)
 {
 	var tmp = jQuery('#zawiw-chat-area').prop('scrollHeight') - parseInt((jQuery('#zawiw-chat-area').css('height')).replace("px", ""));
@@ -242,6 +261,9 @@ function appendChatItem(selfUpdate)
 
 }
 
+/*
+ * animation for dropdown when Create chat history is clicked
+*/
 function expand(elem)
 {
 	elem = jQuery(elem);
@@ -263,14 +285,13 @@ function startTimer()
 }
 
 jQuery(document).ready(function(){
-	//TODO redirect to sendWsMessage() if Websocket is supported else fallback
 	  if(typeof(WebSocket) == "function") {
-	    //jQuery("#zawiw-chat-area").html("<h1>Error</h1><p>Your browser does not support HTML5 Web Sockets. Try Google Chrome instead.</p>");
-	  	// no websocket supported fallback to ajax
+	    // websockets are supported init websocket connection
 	  	init();
 	  }
 	  else
 	  {
+	  	// no websocket supported fallback to ajax
 		startTimer();
 	  }
 	jQuery('#msg').bind("keypress", function() {
@@ -305,6 +326,9 @@ jQuery(document).ready(function(){
 	}
 });
 
+/*
+ * notification when new chatmessages is incoming
+*/
 function notification()
 {
 	jQuery("zawiw-notification-placeholder").toggle();
@@ -313,11 +337,13 @@ function notification()
 	jQuery("#zawiw-notification-placeholder").fadeOut(5000);
 }
 
+/*
+ * functionallity of the textsearch
+*/
 function searchtext()
 {
 	var searchValueTmp = jQuery('#search-filter').val();
 	var searchValue = jQuery('#search-filter').val().toLowerCase();
-	//alert(jQuery('.msg_container').contents().filter(function() { return this.nodeType == 3; }));
 	jQuery('.msg_container').each(function(index, elem){
 		if(searchValue == "") {
 			jQuery(elem).css('display', 'block');
@@ -340,6 +366,9 @@ function searchtext()
 	});
 }
 
+/*
+ * replaces typed emojis if they are supported
+*/
 function replaceEmojis()
 {
 	var str = jQuery('#msg').val();

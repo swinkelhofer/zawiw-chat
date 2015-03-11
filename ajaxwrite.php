@@ -1,4 +1,7 @@
 <?php
+/*
+ *	Write messages to database and backup
+*/
 
 mb_internal_encoding("UTF-8");
 require_once("../../../wp-load.php");
@@ -18,6 +21,10 @@ function unset_post_escape()
 	}
 	unset($process);
 }
+
+/*
+ * Escape listed characters
+*/
 function escape($str)
 {
 	$str = str_replace("'", "&#39;", $str);
@@ -25,6 +32,10 @@ function escape($str)
 	$str = str_replace("`", "&#180;", $str);
 	return $str;
 }
+
+/*
+ * Write chatmessages to database with timestamp
+*/
 function write_db()
 {
 	global $wpdb;
@@ -43,6 +54,9 @@ function write_db()
 	echo mysql_error();
 }
 
+/*
+ * moves chatmessages wich are older than 7 days to backupdatabase
+*/
 function zawiw_chat_backup_db()
 {
 	global $wpdb;

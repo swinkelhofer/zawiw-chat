@@ -4,15 +4,13 @@ define('WP_INSTALLING', true);
 ini_set('mysqli.reconnect', 1);
 require_once(dirname(__FILE__).'/websockets.php');
 
-// MySQL database connection to wrppress
+// MySQL database connection to wordpress
 $db = mysqli_connect("0.0.0.0", "web10", "FD26Ur2k", "usr_web10_1");
 // Check connection
 if (mysqli_connect_errno())
   {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
-//$db = sqlite_open('db.sqlite');###########
-//$q = sqlite_query($db, 'CREATE TABLE messages (id int, msg TEXT)');###########
 
 class BroadcastWebSocketServer extends WebSocketServer
 {
@@ -44,11 +42,6 @@ class BroadcastWebSocketServer extends WebSocketServer
 				{
 					$this->send($user, $this->build_message($row['createDT'], $row['userId'], $row['message']));
 				}
-				/*
-				$q = sqlite_query($db, 'SELECT * FROM messages');###########
-				while($entry = sqlite_fetch_array($q))###########
-				$this->send($user, $entry['msg']);###########
-				*/
 			}
 		}
 		else
@@ -58,6 +51,7 @@ class BroadcastWebSocketServer extends WebSocketServer
 
 	}
 
+	/* builds message for view */
 	protected function build_message($createDT, $userID, $message)
 	{
 		$userdata = get_user_by( 'id', $userID);
@@ -82,11 +76,11 @@ class BroadcastWebSocketServer extends WebSocketServer
 		global $wpdb;
 		require_once(dirname(__FILE__)."/../../html/wp-load.php");
 
+		/* if user logged in set user as authentified*/
 		if(is_user_logged_in())
 		{
 			$key_value = array();
 			$key_value = explode(':', $keks);
-			//print_r($_COOKIE);
 			$user->authentified = true;
 
 			foreach($_COOKIE as $keks => $keks_value)
@@ -118,9 +112,9 @@ class BroadcastWebSocketServer extends WebSocketServer
 		if($num)
 			unset($this->users[$num]);
 	}
+	
 	protected function broadcast($message, $prefix)
 	{
-		//global $wpdb;
 		$prefix = preg_replace('/<userId>.*?<\/userId>/', "", $prefix);
 		$id = preg_filter('/<userId>(.*?)<\/userId>.*$/', "$1", utf8_decode($message));
 		$message = utf8_decode(preg_replace('/<userId>.*?<\/userId>/', "", $message));
@@ -131,7 +125,6 @@ class BroadcastWebSocketServer extends WebSocketServer
 		$sql = "INSERT INTO " . $prefix . "zawiw_chat_data (createDT, userId, message) VALUES ('" . $timestamp . "', '". $id . "', '". $message . "')";
 		echo $sql;
 		mysqli_query($db, $sql);
-		//$q = sqlite_query($db, "INSERT INTO messages (msg) VALUES ('$message')");###########
 		$msg = $this->build_message($timestamp, $id, $message);
 		$almostsent = array();
 		foreach($this->users as $user)

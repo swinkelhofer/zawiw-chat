@@ -64,14 +64,19 @@ function init()
 	
 }
 
+/*
+ * send message via websocket
+*/
 function sendWsMessage()
 {
 	var txt,msg;
 	txt = jQuery("#msg");
 	msg = encodeURIComponent(txt.val());
+	txt.removeClass("error");
 	if(!msg)
 	{
-		alert("Message can not be empty");
+		//alert("Message can not be empty");
+		txt.addClass("error");
 		return;
 	}
 	txt.val("");
@@ -113,5 +118,3 @@ function getCookieData()
 	    }
 	    return aString;
 }
-
-//function Onkey Enter to send not implemented at this time
