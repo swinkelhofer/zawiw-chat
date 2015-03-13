@@ -68,7 +68,7 @@ function embedMedia()
 }
 
 /*
- * inserts chatmessage in #zawiw-chat-area
+ * inserts chatmessage in #zawiw-chat-area on first login
 */
 function insert()
 {

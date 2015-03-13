@@ -7,6 +7,8 @@ an unaccesible folder from the web and sets the access variables.
 
 Changelog
 =========
+3.1.4
+	Websocket backup function
 3.1.3
 	Embedded media support
 3.1.2

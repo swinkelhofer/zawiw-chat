@@ -37,6 +37,8 @@ Note: Current browser support is available at http://en.wikipedia.org/wiki/WebSo
 
 Changelog
 =========
+1.2.1
+	Implemented backup function for old messages
 1.2
 	Wordpress integration and authentification
 1.1

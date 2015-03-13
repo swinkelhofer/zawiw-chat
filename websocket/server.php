@@ -136,6 +136,30 @@ class BroadcastWebSocketServer extends WebSocketServer
 				array_push($almostsent, $user);
 			}
 		}
+		$this->zawiw_chat_backup_db($prefix);
+	}
+
+	/*
+ 	* moves chatmessages wich are older than 7 days to backupdatabase
+	*/
+	protected function zawiw_chat_backup_db($prefix)
+	{
+		global $db;
+		$sql = "SELECT * FROM " . $prefix . "zawiw_chat_data WHERE createDT < (NOW() - INTERVAL 7 DAY) ORDER BY createDT ASC";
+		echo $sql . "\n";
+		$result = mysqli_query($db, $sql);
+
+		$sql = "INSERT INTO " . $prefix . "zawiw_chat_backup (createDT, userID, message) VALUES ";
+		while($row = mysqli_fetch_array($result)) 
+		{
+			$sql .= "('" . $row['createDT'] . "', '" . $row['userId'] . "', '" . $row['message'] . "'),";
+		}
+			$sql = substr($sql, 0, -1);
+			echo $sql. "\n";
+			mysqli_query($db, $sql);
+			$sql = "DELETE FROM " . $prefix . "zawiw_chat_data WHERE createDT < (NOW() - INTERVAL 7 DAY)";
+			echo $sql. "\n";
+			mysqli_query($db, $sql);	
 	}
 }
 

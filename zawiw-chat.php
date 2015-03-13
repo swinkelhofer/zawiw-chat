@@ -3,7 +3,7 @@
 Plugin Name: Zawiw Chat
 Plgin URI:
 Description: Wordpress Chatroom with Websockets
-Version: 3.1.3
+Version: 3.1.4
 Author: Georg Eisenhart, Sascha Winkelhofer
 Author URI:
 License: MIT
