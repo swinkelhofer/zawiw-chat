@@ -7,6 +7,8 @@ an unaccesible folder from the web and sets the access variables.
 
 Changelog
 =========
+3.2
+	Fancy ajax to websocket bridge
 3.1.3
 	Embedded media support
 3.1.2

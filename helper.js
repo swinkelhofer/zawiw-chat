@@ -121,7 +121,7 @@ function postMessage()
 	jQuery('#msg').val(encodeURIComponent(jQuery('#msg').val()));
 	if(jQuery('#pseudonym') != null)
 	{
-		jQuery.post('../wp-content/plugins/zawiw-chat/ajaxwrite.php', jQuery('#form').serialize() +  '&pseudonym='+ jQuery('#pseudonym').val(), function( data) {
+		jQuery.post('../wp-content/plugins/zawiw-chat/ajaxBridge.php', jQuery('#form').serialize() +  '&pseudonym='+ jQuery('#pseudonym').val(), function( data) {
 		
 		 	jQuery('#msg').val('');
 			appendChatItem(false);
@@ -130,7 +130,7 @@ function postMessage()
 	}
 	else
 	{
-		jQuery.post('../wp-content/plugins/zawiw-chat/ajaxwrite.php',  jQuery('#form').serialize(), function( data) {
+		jQuery.post('../wp-content/plugins/zawiw-chat/ajaxBridge.php',  jQuery('#form').serialize(), function( data) {
 		
 		 	jQuery('#msg').val('');
 			appendChatItem(false);

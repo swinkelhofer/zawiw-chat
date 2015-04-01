@@ -1,5 +1,6 @@
 <?php
 	require_once("../../../wp-load.php");
+	use Client;
 	header('Content-Type: text/html; charset=utf-8');
 	mb_internal_encoding("UTF-8");
 	if(!is_user_logged_in())
@@ -7,6 +8,7 @@
 		echo "<div id='zawiw-chat-message'>Sie müssen angemeldet sein, um diese Funktion zu nutzen</div>";
 		return;
 	}
+
 	$zawiw_chat_query = 'SELECT * FROM ';
 	$zawiw_chat_query .= $wpdb->get_blog_prefix() . 'zawiw_chat_data ';
 	$zawiw_chat_query .= 'WHERE createDT > \'' . $_POST['lastpost'] . '\' ORDER BY createDT ASC';

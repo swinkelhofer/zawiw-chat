@@ -9,23 +9,22 @@ $db = mysqli_connect("0.0.0.0", "web10", "FD26Ur2k", "usr_web10_1");
 // Check connection
 if (mysqli_connect_errno())
   {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  #echo "Failed to connect to MySQL: " . mysqli_connect_error();
   }
-//$db = sqlite_open('db.sqlite');###########
-//$q = sqlite_query($db, 'CREATE TABLE messages (id int, msg TEXT)');###########
 
 class BroadcastWebSocketServer extends WebSocketServer
 {
 	protected $users = array();
 	protected function process($user, $message)
 	{
+		echo $message . "\n";
 		$prefix = preg_filter('/<prefix>(.*?)<\/prefix>.*$/', "$1", utf8_decode($message));
 		$message = utf8_decode(preg_replace('/<prefix>.*?<\/prefix>/', "", $message));
 
 		//ist benutzer in anwärter array? check cookies ....
 		if(!$user->authentified)
 		{
-			if(!$this->user_authentified($user, $message))
+			if($this->user_authentified($user, $message) === FALSE)
 			{
 				$this->disconnect($user->socket);
 			}
@@ -37,25 +36,19 @@ class BroadcastWebSocketServer extends WebSocketServer
 				mysqli_ping($db);
 				array_push($this->users, $user);
 				$sql = "SELECT * FROM " . $prefix . "zawiw_chat_data ORDER BY createDT ASC";
-				echo $sql . "\n";
+				#echo $sql . "\n";
 				$result = mysqli_query($db, $sql);
 
 				while($row = mysqli_fetch_array($result)) 
 				{
 					$this->send($user, $this->build_message($row['createDT'], $row['userId'], $row['message']));
 				}
-				/*
-				$q = sqlite_query($db, 'SELECT * FROM messages');###########
-				while($entry = sqlite_fetch_array($q))###########
-				$this->send($user, $entry['msg']);###########
-				*/
 			}
 		}
 		else
 		{
 			$this->broadcast($message, $prefix);
 		}
-
 	}
 
 	protected function build_message($createDT, $userID, $message)
@@ -84,25 +77,38 @@ class BroadcastWebSocketServer extends WebSocketServer
 
 		if(is_user_logged_in())
 		{
-			$key_value = array();
-			$key_value = explode(':', $keks);
-			//print_r($_COOKIE);
 			$user->authentified = true;
+	        $theCookies = array();
+        	$theCookies = explode(';', $message, -1);
 
-			foreach($_COOKIE as $keks => $keks_value)
-			{
-				unset($_COOKIE[$keks]);
+            foreach($theCookies as $keks)
+	        {
+    	        $key_value = array();
+           	 	$key_value = explode(':', $keks);
+            	unset($_COOKIE[$key_value[0]]);
+        		#echo $key_value[0];
 			}
+			$HTTP_COOKIE_VARS = "";
+			global $current_user;
+			$current_user=null;
 			return true;
 
 		}
 		else
 		{
-			foreach($_COOKIE as $keks)
-			{
-				unset($_COOKIE[$keks]);
-			}
-			print_r($_COOKIE);
+			$theCookies = array();
+            $theCookies = explode(';', $message, -1);
+
+            foreach($theCookies as $keks)
+            {
+                $key_value = array();
+                $key_value = explode(':', $keks);
+                unset($_COOKIE[$key_value[0]]);
+                #echo $key_value[0];
+            }
+            $HTTP_COOKIE_VARS = "";
+			global $current_user;
+                        $current_user=null;
 			return false;
 		}
 	}
@@ -115,6 +121,7 @@ class BroadcastWebSocketServer extends WebSocketServer
 	protected function closed($user)
 	{
 		$num = array_search($user, $this->users);
+		#print_r($this->users);
 		if($num)
 			unset($this->users[$num]);
 	}
@@ -129,16 +136,14 @@ class BroadcastWebSocketServer extends WebSocketServer
 
 		global $db;
 		$sql = "INSERT INTO " . $prefix . "zawiw_chat_data (createDT, userId, message) VALUES ('" . $timestamp . "', '". $id . "', '". $message . "')";
-		echo $sql;
+		#echo $sql;
 		mysqli_query($db, $sql);
-		//$q = sqlite_query($db, "INSERT INTO messages (msg) VALUES ('$message')");###########
 		$msg = $this->build_message($timestamp, $id, $message);
 		$almostsent = array();
 		foreach($this->users as $user)
 		{
 			if(array_search($user, $almostsent) === FALSE)
 			{
-
 				$this->send($user,$msg);
 				array_push($almostsent, $user);
 			}

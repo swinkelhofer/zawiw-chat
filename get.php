@@ -38,7 +38,6 @@ function anonymous_login()
 	}
 }
 
-
 function zawiw_chat_shortcode($param)
 {
 	if(!is_user_logged_in())

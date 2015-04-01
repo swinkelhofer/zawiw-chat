@@ -6,7 +6,7 @@ function init()
 
 	if (checkConnection < 10 ){
 		// SET THIS TO YOUR SERVER
-		var host = "ws://mirror.forschendes-lernen.de:9999/";
+		var host = "ws://88.80.205.25:9999/";
 		try
 		{	
 			socket = new WebSocket(host);
