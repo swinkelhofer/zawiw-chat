@@ -1,71 +1,10 @@
-#zawiw-chat-area {
-	background-color: #F0F0F0;
-	padding: 10px;
-	position: relative;
-	height:500px;
-	overflow-y: scroll;
-	overflow-x: hidden;
-	border: 1px solid #bbb;
-}
+/*
+ * Styles our fancy plugin
+ * Christmas and Background picture (newyear setting) at the end of file
+*/
 
-#zawiw-search-filter {
-	z-index: 5000;
-	position: absolute;
-	width: 25%;
-	min-width: 150px;
-	top: 15px;
-	right: 20px;
-	box-shadow: 1px 1px 1px rgba(0,0,0,.4);
-}
-
-#zawiw-chat-view {
-	position: relative;
-	font-family: Lato, sans;
-}
-
-#zawiw-notification-placeholder {
-    z-index: 5000;
-    position: absolute;
-    display: none;
-    width: 100%;
-   	top: 10px;
-}
-
-#zawiw-chat-notification {
-	background-color: #333;
-	color: #fff;
-	margin-left: auto;
-    margin-right: auto;
-    width: 40%;
-   	position: relative;
-    text-align: center;
-    padding: 3px;
-    border-radius: 8px;
-    opacity: 0.9;
-}
-
-.chat_input {
-	margin: 0;
-	display: inline-block;
-	float: left;
-	width: 100%;
-}
-
-.submit_button {
-	margin: 0;
-	display: inline-block;
-	width: 150px;
-	position: absolute;
-	float: left;
-	top: 0px;
-	right: 0px;
-}
-
-.error {
-	border: 1px solid #7F0000 !important;
-	background-color: #7F0000 !important;
-}
-
+/* global settings */
+/* resolution for mobilephone */
 @media only screen and (max-width: 767px)
 {
 	.submit_button {
@@ -88,14 +27,94 @@
 		box-shadow: 1px 1px 1px rgba(0,0,0,.4);
 	}
 }
+/* end resolution for mobile phone */
 
-.submit_button input {
-	width: 100%;
+.error {
+	border: 1px solid #7F0000 !important;
+	background-color: #7F0000 !important;
 }
 
-.zawiw-chat-datetime {
-	color: #555;
-	font-size: 75%;
+.warning
+{
+	background-color: #ffffaa;
+}
+
+.break {
+	font-size: 5pt;
+	line-height: 50%;
+}
+/*end of global settings */
+
+/* Chat View wirth notification, Search textfield and messages */
+#zawiw-chat-view {
+	position: relative;
+	font-family: Lato, sans;
+}
+
+/* notification in foreground for new messages */
+#zawiw-notification-placeholder {
+    z-index: 5000;
+    position: absolute;
+    display: none;
+    width: 100%;
+   	top: 10px;
+}
+
+#zawiw-chat-notification {
+	background-color: #333;
+	color: #fff;
+	margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+   	position: relative;
+    text-align: center;
+    padding: 3px;
+    border-radius: 8px;
+    opacity: 0.9;
+}
+/* end of notification */
+
+#zawiw-search-filter {
+	z-index: 5000;
+	position: absolute;
+	width: 25%;
+	min-width: 150px;
+	top: 15px;
+	right: 20px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.4);
+}
+
+/* chat area where messages are shown */
+#zawiw-chat-area {
+	background-color: #F0F0F0;
+	padding: 10px;
+	position: relative;
+	height:500px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	border: 1px solid #bbb;
+}
+
+/* message container
+ * contains: avatar, name, timestamp and message;
+*/
+.msg_container {
+	margin-bottom: 30px;
+}
+
+.msg_container b {
+	background-color:yellow !important;
+	font-weight: inherit;
+}
+
+.avatar {
+	margin-right: 5px;
+	margin-bottom: 5px;
+	box-shadow: 2px 2px 2px rgba(50,50,50,.4);
+}
+
+.zawiw-chat-avatar-user:hover span {
+	color: #888;
 }
 
 .zawiw-chat-user {
@@ -104,16 +123,9 @@
 	font-weight: bold;
 }
 
-.zawiw-chat-avatar-user:hover span {
-	color: #888;
-}
-
-.pdferror {
-	font-size: 120%;
-	font-weight: bold;
-	background-color: #fff777;
-	padding: 5px;
-	padding-left: 16px;
+.zawiw-chat-datetime {
+	color: #555;
+	font-size: 75%;
 }
 
 .zawiw-chat-message {
@@ -135,68 +147,31 @@
 	display: inline;
 }
 
-.break {
-	font-size: 5pt;
-	line-height: 50%;
-}
-
-.avatar {
-	margin-right: 5px;
-	margin-bottom: 5px;
-	box-shadow: 2px 2px 2px rgba(50,50,50,.4);
-}
-
-#zawiw_chat_download
-{
-	float: left;
-}
-
-#zawiw_chat_download > a
-{
+/* triggers when embed media is called */
+.embed {
 	display: block;
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-a.fa:before
-{
-	padding-right: 5px;
-}
-
-#zawiw_chat_download_expandable
-{
-	display: block;
-	overflow: hidden;
-	max-height: 0px;
-	transition: all 0.3s linear 0s;
-	padding-left: 20px;
-}
-
-#wait
-{
-	transition: height 0.2s linear 0s;
-	height: 0px;
-	width: 0px;
-}
-
-#wait img
-{
-	height: 40px;
-	width: 40px;
-}
-
-.warning
-{
-	background-color: #ffffaa;
-}
-
-#download {
+	margin-right: auto;
+	margin-left: auto;
 	margin-top: 10px;
+	box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+
+}
+/* end of message container */
+/* end of zawiw-chat-area */
+
+/* chat input, emojis and controls */
+.placeholder {
+	position: relative;
 }
 
-#send {
-	height: 50px;
+.chat_input {
+	margin: 0;
+	display: inline-block;
+	float: left;
+	width: 100%;
 }
 
+/* emoji button */
 #emoji_button {
 	width: 50px;
 	height: 50px;
@@ -204,22 +179,12 @@ a.fa:before
 	position: absolute;
 	line-height: 2;
 	font-size: 170%;
-	border: 1px solid #999;
-	
-
-}
-.placeholder {
-	position: relative;
+	border: 1px solid #999;	
 }
 
 #emoji_button:hover {
 	cursor: pointer;
 	box-shadow: 1px 1px 2px rgba(50,50,50,.4);
-}
-
-#msg {
-	padding-left: 66px;
-	padding-right: 166px;
 }
 
 #emojiList {
@@ -267,24 +232,88 @@ a.fa:before
 #emojiList .quarter:hover {
 	box-shadow: 0px 0px 2px rgba(0,0,0,0.4);
 }
+/* end emoji button */
 
-.msg_container {
-	margin-bottom: 30px;
+/* messagetextbox for input */
+#msg {
+	padding-left: 66px;
+	padding-right: 166px;
 }
 
-.msg_container b {
-	background-color:yellow !important;
-	font-weight: inherit;
+/* Submit message button */
+.submit_button {
+	margin: 0;
+	display: inline-block;
+	width: 150px;
+	position: absolute;
+	float: left;
+	top: 0px;
+	right: 0px;
 }
 
-.embed {
+.submit_button input {
+	width: 100%;
+}
+
+#send {
+	height: 50px;
+}
+/* end of submit message button */
+/* end of chat input, emojis and controls */
+
+/* manages PDF download */
+#zawiw_chat_download.pdferror {
+	font-size: 120%;
+	font-weight: bold;
+	background-color: #fff777;
+	padding: 5px;
+	padding-left: 16px;
+}
+
+#zawiw_chat_download
+{
+	float: left;
+}
+
+#zawiw_chat_download > a
+{
 	display: block;
-	margin-right: auto;
-	margin-left: auto;
-	margin-top: 10px;
-	box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
-
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
+
+a.fa:before
+{
+	padding-right: 5px;
+}
+
+#zawiw_chat_download_expandable
+{
+	display: block;
+	overflow: hidden;
+	max-height: 0px;
+	transition: all 0.3s linear 0s;
+	padding-left: 20px;
+}
+
+#wait
+{
+	transition: height 0.2s linear 0s;
+	height: 0px;
+	width: 0px;
+}
+
+#wait img
+{
+	height: 40px;
+	width: 40px;
+}
+
+#download {
+	margin-top: 10px;
+}
+/* end of PDF download */
+
 /*Christmas settings ;) */
 /*
 .inlineEmoji {
@@ -354,7 +383,7 @@ a.fa:before
 */
 /* end of christmas settings */
 
-/* new year settings */
+/* background for chat-view new year settings */
 /*
 #blur {
 	background-color: #F0F0F0;

@@ -15,6 +15,12 @@ function init()
 				data = replaceData(decodeURIComponent(msg.data));
 				jQuery("#zawiw-chat-area").append(data);
 				embedMedia();
+				var tmp = jQuery("#zawiw-chat-area")[0].scrollHeight;
+				if(jQuery("#zawiw-chat-area").scrollTop() == 0 || jQuery("#zawiw-chat-area").scrollTop() == tmp)
+				{
+ 					jQuery("#zawiw-chat-area").scrollTop(jQuery("#zawiw-chat-area")[0].scrollHeight);
+ 				}
+
 			};
 			socket.onclose   = function(msg)
 			{
@@ -28,6 +34,7 @@ function init()
 				var cookieString = jQuery("#cookies").val();
 				var prefix = jQuery("#prefix").val();
 				socket.send('<prefix>' + prefix + '</prefix>' + cookieString);
+				checkConnection = 0;
 			};
 		}
 		catch(ex)
@@ -57,14 +64,19 @@ function init()
 	
 }
 
+/*
+ * send message via websocket
+*/
 function sendWsMessage()
 {
 	var txt,msg;
 	txt = jQuery("#msg");
 	msg = encodeURIComponent(txt.val());
+	txt.removeClass("error");
 	if(!msg)
 	{
-		alert("Message can not be empty");
+		//alert("Message can not be empty");
+		txt.addClass("error");
 		return;
 	}
 	txt.val("");
@@ -106,5 +118,3 @@ function getCookieData()
 	    }
 	    return aString;
 }
-
-//function Onkey Enter to send not implemented at this time

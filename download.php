@@ -1,10 +1,19 @@
 <?php
+/*
+ * manages download for chat history and creates the chathistory PDF with given data
+*/
+
 header('Content-Type: charset=utf-8');
 require_once("../../../wp-load.php");
+
+/*
+ * creates a random string for Chathistory ṔDF filenames
+*/
 function generateRandomString($length = 10)
 {
     return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 }
+
 function deleteOldPdfs()
 {
 	$folderName = dirname( __FILE__ ) . "/pdfs";

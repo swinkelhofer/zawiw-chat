@@ -1,4 +1,8 @@
 <?php
+/*
+	get chat messages from database and post in Chatroom
+*/
+
 	require_once("../../../wp-load.php");
 	use Client;
 	header('Content-Type: text/html; charset=utf-8');

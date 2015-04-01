@@ -6,6 +6,9 @@ add_action( 'wp_enqueue_scripts', 'zawiw_chat_queue_stylesheet' );
 
 header('Content-Type: text/html; charset=utf-8');
 
+/*
+ * gets cookies for hidden fields
+*/
 function processCookies()
 {
 	$str = "";
@@ -16,6 +19,9 @@ function processCookies()
 	return $str;
 }
 
+/*
+ * anonymous user will be logged in if parameter is set
+*/
 function anonymous_login()
 {
 	global $wpdb;

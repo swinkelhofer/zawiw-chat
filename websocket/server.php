@@ -4,7 +4,7 @@ define('WP_INSTALLING', true);
 ini_set('mysqli.reconnect', 1);
 require_once(dirname(__FILE__).'/websockets.php');
 
-// MySQL database connection to wrppress
+// MySQL database connection to wordpress
 $db = mysqli_connect("0.0.0.0", "web10", "FD26Ur2k", "usr_web10_1");
 // Check connection
 if (mysqli_connect_errno())
@@ -51,6 +51,7 @@ class BroadcastWebSocketServer extends WebSocketServer
 		}
 	}
 
+	/* builds message for view */
 	protected function build_message($createDT, $userID, $message)
 	{
 		$userdata = get_user_by( 'id', $userID);
@@ -75,8 +76,11 @@ class BroadcastWebSocketServer extends WebSocketServer
 		global $wpdb;
 		require_once(dirname(__FILE__)."/../../html/wp-load.php");
 
+		/* if user logged in set user as authentified*/
 		if(is_user_logged_in())
 		{
+			$key_value = array();
+			$key_value = explode(':', $keks);
 			$user->authentified = true;
 	        $theCookies = array();
         	$theCookies = explode(';', $message, -1);
@@ -125,9 +129,9 @@ class BroadcastWebSocketServer extends WebSocketServer
 		if($num)
 			unset($this->users[$num]);
 	}
+	
 	protected function broadcast($message, $prefix)
 	{
-		//global $wpdb;
 		$prefix = preg_replace('/<userId>.*?<\/userId>/', "", $prefix);
 		$id = preg_filter('/<userId>(.*?)<\/userId>.*$/', "$1", utf8_decode($message));
 		$message = utf8_decode(preg_replace('/<userId>.*?<\/userId>/', "", $message));
@@ -148,6 +152,30 @@ class BroadcastWebSocketServer extends WebSocketServer
 				array_push($almostsent, $user);
 			}
 		}
+		$this->zawiw_chat_backup_db($prefix);
+	}
+
+	/*
+ 	* moves chatmessages wich are older than 7 days to backupdatabase
+	*/
+	protected function zawiw_chat_backup_db($prefix)
+	{
+		global $db;
+		$sql = "SELECT * FROM " . $prefix . "zawiw_chat_data WHERE createDT < (NOW() - INTERVAL 7 DAY) ORDER BY createDT ASC";
+		echo $sql . "\n";
+		$result = mysqli_query($db, $sql);
+
+		$sql = "INSERT INTO " . $prefix . "zawiw_chat_backup (createDT, userID, message) VALUES ";
+		while($row = mysqli_fetch_array($result)) 
+		{
+			$sql .= "('" . $row['createDT'] . "', '" . $row['userId'] . "', '" . $row['message'] . "'),";
+		}
+			$sql = substr($sql, 0, -1);
+			echo $sql. "\n";
+			mysqli_query($db, $sql);
+			$sql = "DELETE FROM " . $prefix . "zawiw_chat_data WHERE createDT < (NOW() - INTERVAL 7 DAY)";
+			echo $sql. "\n";
+			mysqli_query($db, $sql);	
 	}
 }
 
