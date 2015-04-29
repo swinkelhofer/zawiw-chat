@@ -24,7 +24,8 @@ function init()
 			};
 			socket.onclose   = function(msg)
 			{
-				log("Disconnected - status " + this.readyState + " - Try to reconnect");
+				log("status " + this.readyState + "- connecting ...")
+				//log("Disconnected - status " + this.readyState + " - Try to reconnect");
 				checkConnection = checkConnection + 1;
 				reconnect();
 			};
@@ -106,7 +107,7 @@ function log(msg)
 		//$("zawiw-chat-area").innerHTML+="<br>" + user;
 		//alert("Welcome again " + user);
 	}
-	jQuery("#zawiw-chat-area").append("<p>" + msg + "</p>");
+	jQuery("#zawiw-chat-area").html("<p>" + msg + "</p>");
 }
 
 function getCookieData()

@@ -2,6 +2,7 @@
 
 define('WP_INSTALLING', true);
 ini_set('mysqli.reconnect', 1);
+#ini_set('mysqli.allow_persistent', 1);
 require_once(dirname(__FILE__).'/websockets.php');
 
 // MySQL database connection to wordpress
