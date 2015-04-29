@@ -32,6 +32,7 @@ class BroadcastWebSocketServer extends WebSocketServer
 			else
 			{
 				$user->authentified = true;
+				$user->blogIdentity = $prefix;
 				global $db;
 				//echo "Users: " . count($this->users) . "\n";
 				mysqli_ping($db);
@@ -149,7 +150,10 @@ class BroadcastWebSocketServer extends WebSocketServer
 		{
 			if(array_search($user, $almostsent) === FALSE)
 			{
-				$this->send($user,$msg);
+				if($user->blogIdentity == $prefix)
+				{
+					$this->send($user,$msg);
+				}
 				array_push($almostsent, $user);
 			}
 		}

@@ -8,6 +8,8 @@ class WebSocketUser {
   public $authentified = false;
   public $handshake = false;
 
+  public $blogIdentity;
+
   public $handlingPartialPacket = false;
   public $partialBuffer = "";
 
