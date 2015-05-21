@@ -285,6 +285,10 @@ function startTimer()
 }
 
 jQuery(document).ready(function(){
+	// Cancel init if user is not logged in
+	if(jQuery("#cookies").val() == null){
+		return;
+	}
 	  if(typeof(WebSocket) == "function") {
 	    // websockets are supported init websocket connection
 	  	init();

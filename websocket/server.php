@@ -76,11 +76,22 @@ class BroadcastWebSocketServer extends WebSocketServer
 			$_COOKIE[$key_value[0]] = $key_value[1];
 		}
 		global $wpdb;
-		require_once(dirname(__FILE__)."/../../html/wp-load.php");
+		require_once("/var/www/web10/html/"."wp-load.php");
+		require_once("/var/www/web10/html/"."wp-blog-header.php");
 
+		$foo = $user->headers['origin'];
+		$foo = preg_replace('/https?:\/\//', '', $foo);
+		echo $foo;
+		session_set_cookie_params(0, '/', $foo);
+		//define('COOKIE_DOMAIN', $foo);
+		print_r(session_get_cookie_params());
+		echo "=====================\n";
 		/* if user logged in set user as authentified*/
 		if(is_user_logged_in())
-		{
+		{	
+			//print_r($user);
+			//print_r($message);
+			//echo "\n\n";
 			$key_value = array();
 			$key_value = explode(':', $keks);
 			$user->authentified = true;
