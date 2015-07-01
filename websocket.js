@@ -1,12 +1,11 @@
 var socket;
 var checkConnection = 0;
 
-function init()
-{
+function init() {
 
 	if (checkConnection < 10 ){
 		// SET THIS TO YOUR SERVER
-		var host = "ws://88.80.205.25:9999/";
+		var host = "ws://88.80.205.25:10000/";
 		try
 		{	
 			socket = new WebSocket(host);
@@ -35,7 +34,7 @@ function init()
 				var cookieString = jQuery("#cookies").val();
 				var prefix = jQuery("#prefix").val();
 				socket.send('<prefix>' + prefix + '</prefix>' + cookieString);
-				checkConnection = 0;
+				checkConnection = 10;
 			};
 		}
 		catch(ex)
@@ -46,6 +45,7 @@ function init()
 	}
 	else
 	{
+		/*
 		socket.onmessage = function(msg)
 		{
 			return;
@@ -59,6 +59,7 @@ function init()
 		{
 			return;
 		};
+		*/
 		startTimer();
 		return;
 	}  	
@@ -68,8 +69,7 @@ function init()
 /*
  * send message via websocket
 */
-function sendWsMessage()
-{
+function sendWsMessage() {
 	var txt,msg;
 	txt = jQuery("#msg");
 	msg = encodeURIComponent(txt.val());
@@ -94,13 +94,19 @@ function sendWsMessage()
 	}
 }
 
-function reconnect()
-{
+function reconnect() {
+	quit();
 	init();
 }
 
-function log(msg)
-{
+function quit(){
+	if(socket != null){
+		socket.close();
+		socket = null;
+	}
+}
+
+function log(msg) {
 	var user = getCookieData();
 	if(user != "")
 	{
@@ -110,8 +116,7 @@ function log(msg)
 	jQuery("#zawiw-chat-area").html("<p>" + msg + "</p>");
 }
 
-function getCookieData()
-{
+function getCookieData() {
 	var theCookies = document.cookie.split(';');
 	var aString = '';
 	    for (var i = 1 ; i <= theCookies.length; i++) {

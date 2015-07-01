@@ -12,8 +12,8 @@ class TestWebSocketClient
 	}
 	public function connect()
 	{
-		$host = "88.80.210.101";
-		$port = 9999;
+		$host = "88.80.205.25";
+		$port = 10000;
 		if(!socket_connect($this->socket, $host, $port))
             die("Error while connecting to " . $host . ":" . $port);
 		$header = "GET / HTTP/1.1\r\n";

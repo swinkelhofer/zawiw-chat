@@ -75,20 +75,27 @@ class BroadcastWebSocketServer extends WebSocketServer
 			$key_value = explode(':', $keks);
 			$_COOKIE[$key_value[0]] = $key_value[1];
 		}
+
 		global $wpdb;
 		require_once("/var/www/web10/html/"."wp-load.php");
 		require_once("/var/www/web10/html/"."wp-blog-header.php");
+		//require_once("/var/www/web10/html/wp-includes/"."wp-db.php");
+		require_once("/var/www/web10/html/wp-includes/"."pluggable.php");
 
 		$foo = $user->headers['origin'];
 		$foo = preg_replace('/https?:\/\//', '', $foo);
+		global $current_user;
+		echo 'user after logged in is true\n';
+		print_r(wp_get_current_user());
+		/*
 		echo $foo;
 		session_set_cookie_params(0, '/', $foo);
 		//define('COOKIE_DOMAIN', $foo);
 		print_r(session_get_cookie_params());
 		echo "=====================\n";
+		*/
 		/* if user logged in set user as authentified*/
-		if(is_user_logged_in())
-		{	
+		if(is_user_logged_in()) {	
 			//print_r($user);
 			//print_r($message);
 			//echo "\n\n";
@@ -98,8 +105,7 @@ class BroadcastWebSocketServer extends WebSocketServer
 	        $theCookies = array();
         	$theCookies = explode(';', $message, -1);
 
-            foreach($theCookies as $keks)
-	        {
+            foreach($theCookies as $keks) {
     	        $key_value = array();
            	 	$key_value = explode(':', $keks);
             	unset($_COOKIE[$key_value[0]]);
@@ -107,17 +113,29 @@ class BroadcastWebSocketServer extends WebSocketServer
 			}
 			$HTTP_COOKIE_VARS = "";
 			global $current_user;
-			$current_user=null;
+			//echo "users meta\n";
+			//print_r(get_user_meta($current_user->ID));
+			//delete_user_meta();
+			//print_r(get_user_meta());
+			//wp_logout();
+			//wp_set_current_user(0);
+			//wp_destroy_current_session();
+	        //wp_clear_auth_cookie();
+			//$current_user=0;
+			/*
+			if(!is_user_logged_in())
+				echo 'user logged out succesfull';
+			echo 'user after logged in is true\n';
+			print_r(wp_get_current_user());
+			*/
 			return true;
 
 		}
-		else
-		{
+		else {
 			$theCookies = array();
             $theCookies = explode(';', $message, -1);
 
-            foreach($theCookies as $keks)
-            {
+            foreach($theCookies as $keks) {
                 $key_value = array();
                 $key_value = explode(':', $keks);
                 unset($_COOKIE[$key_value[0]]);
@@ -125,8 +143,18 @@ class BroadcastWebSocketServer extends WebSocketServer
             }
             $HTTP_COOKIE_VARS = "";
 			global $current_user;
-                        $current_user=null;
-			return false;
+			/*
+        	echo 'user before reset if false';
+        	print_r(wp_get_current_user());
+            */
+            wp_logout(); //doesn't work
+            wp_set_current_user(0);
+            //$current_user=0;
+   			//wp_destroy_current_session();
+   			//wp_clear_auth_cookie();
+            //echo 'user after reset if false';
+            //print_r(wp_get_current_user());
+            return false;
 		}
 	}
 
@@ -195,7 +223,7 @@ class BroadcastWebSocketServer extends WebSocketServer
 	}
 }
 
-$webserver = new BroadcastWebSocketServer("0.0.0.0","9999");
+$webserver = new BroadcastWebSocketServer("0.0.0.0","10000");
 
 try
 {
