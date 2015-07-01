@@ -34,7 +34,7 @@ function init() {
 				var cookieString = jQuery("#cookies").val();
 				var prefix = jQuery("#prefix").val();
 				socket.send('<prefix>' + prefix + '</prefix>' + cookieString);
-				checkConnection = 10;
+				checkConnection = 0;
 			};
 		}
 		catch(ex)
@@ -44,8 +44,8 @@ function init() {
 		}
 	}
 	else
-	{
-		/*
+	{	
+		
 		socket.onmessage = function(msg)
 		{
 			return;
@@ -59,7 +59,7 @@ function init() {
 		{
 			return;
 		};
-		*/
+		
 		startTimer();
 		return;
 	}  	
