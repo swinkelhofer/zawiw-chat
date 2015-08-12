@@ -34,7 +34,7 @@ function init() {
 				var cookieString = jQuery("#cookies").val();
 				var prefix = jQuery("#prefix").val();
 				socket.send('<prefix>' + prefix + '</prefix>' + cookieString);
-				checkConnection = 0;
+				checkConnection = 10;
 			};
 		}
 		catch(ex)
@@ -45,20 +45,27 @@ function init() {
 	}
 	else
 	{	
-		
-		socket.onmessage = function(msg)
+		try
 		{
-			return;
-		};
-		socket.onclose   = function(msg)
+			socket.onmessage = function(msg)
+			{
+				return;
+			};
+			socket.onclose   = function(msg)
+			{
+				log("Fall back to ajax" + this.readyState);
+				return;
+			};
+			socket.onopen = function()
+			{
+				return;
+			};
+			
+		}
+		catch(ex)
 		{
-			log("Fall back to ajax" + this.readyState);
-			return;
-		};
-		socket.onopen = function()
-		{
-			return;
-		};
+			log(ex);
+		}
 		
 		startTimer();
 		return;
