@@ -12,7 +12,7 @@ class TestWebSocketClient
 	}
 	public function connect()
 	{
-		$host = "88.80.205.25";
+		$host = "128.127.64.6";
 		$port = 10000;
 		if(!socket_connect($this->socket, $host, $port))
             die("Error while connecting to " . $host . ":" . $port);
@@ -67,7 +67,7 @@ class TestWebSocketClient
         $frameHead = array();
         $frame = '';
         $payloadLength = strlen($payload);
-        switch ($type) 
+        switch ($type)
         {
             case 'text':
                 // first byte indicates FIN, Text-Frame (10000001):
@@ -86,7 +86,7 @@ class TestWebSocketClient
                 $frameHead[0] = 138;
                 break;
         }
-        if ($payloadLength > 65535) 
+        if ($payloadLength > 65535)
         {
             $frameHead[1] = ($masked === true) ? 255 : 127;
             for ($i = 7; $i >= 0; $i--)
@@ -135,7 +135,7 @@ class TestWebSocketClient
         $msgLength = ($masked === true) ? ord($bytes[1]) & 127 : ord($bytes[1]);
         if ($masked === true)
         {
-            if ($msgLength === 126) 
+            if ($msgLength === 126)
             {
                 $mask = substr($bytes, 4, 4);
                 $coded_msg = substr($bytes, 8);

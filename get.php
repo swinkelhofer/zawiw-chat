@@ -12,9 +12,9 @@ header('Content-Type: text/html; charset=utf-8');
 function processCookies()
 {
 	$str = "";
-	foreach ($_COOKIE as $cookie => $value) 
+	foreach ($_COOKIE as $cookie => $value)
 	{
-		$str .= $cookie . ":" . $value . ";";  	
+		$str .= $cookie . ":" . $value . ";";
 	}
 	return $str;
 }
@@ -66,7 +66,7 @@ function zawiw_chat_shortcode($param)
 					<?php
  if(isset($GLOBALS['is_anonymous'])){
  		?>
-		<div id="anonymous_user"> 
+		<div id="anonymous_user">
 			<input id="pseudonym" type="text" name="pseudonym" placeholder="Type your name"/>
 		</div>
 		<?php
@@ -126,12 +126,12 @@ function zawiw_chat_queue_stylesheet()
 	global $post;	//Contains the whole site content
 	if(!has_shortcode($post->post_content, 'zawiw_chat'))	//Loads stylesheets only if shortcode exists
 		return;
-    wp_enqueue_style( 'zawiw_chat_style', plugins_url( 'style.css', __FILE__ ) );
-    global $current_user;
-    if($current_user->user_login == "anonymous")
-	wp_enqueue_style( 'zawiw_chat_anonymous_style', plugins_url( 'anonymous.css', __FILE__ ) );
-    wp_enqueue_style( 'font_awesome4.2', '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' );
-    wp_enqueue_style( 'lato_font', 'https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' );
+   wp_enqueue_style( 'zawiw_chat_style', plugins_url( 'style.css', __FILE__ ) );
+   global $current_user;
+   if($current_user->user_login == "anonymous")
+		wp_enqueue_style( 'zawiw_chat_anonymous_style', plugins_url( 'anonymous.css', __FILE__ ) );
+   wp_enqueue_style( 'font_awesome4.2', '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' );
+   wp_enqueue_style( 'lato_font', 'https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' );
 	wp_enqueue_style( 'datetimepickercss', plugins_url( 'datetimepicker/jquery.datetimepicker.css', __FILE__ ) );
 
 }
@@ -140,9 +140,9 @@ function zawiw_chat_queue_script()
 	global $post;
 	if(!has_shortcode($post->post_content, 'zawiw_chat'))	//Loads stylesheets only if shortcode exists
 		return;
-    wp_enqueue_script( 'jquery' );
-    wp_enqueue_script( 'zawiw_chat_script', plugins_url( 'helper.js', __FILE__ ) );
-    wp_enqueue_script( 'websocket_script', plugins_url( 'websocket.js',__FILE__) );
+   wp_enqueue_script( 'jquery' );
+   wp_enqueue_script( 'zawiw_chat_script', plugins_url( 'helper.js', __FILE__ ) );
+   wp_enqueue_script( 'websocket_script', plugins_url( 'websocket.js',__FILE__) );
 	wp_enqueue_script( 'datetimepickerjs', plugins_url( 'datetimepicker/jquery.datetimepicker.js', __FILE__ ) );
 }
 ?>

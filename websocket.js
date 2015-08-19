@@ -5,9 +5,9 @@ function init() {
 
 	if (checkConnection < 10 ){
 		// SET THIS TO YOUR SERVER
-		var host = "ws://88.80.205.25:10000/";
+		var host = "ws://128.127.64.6:10000/";
 		try
-		{	
+		{
 			socket = new WebSocket(host);
 			socket.onmessage = function(msg)
 			{
@@ -35,6 +35,7 @@ function init() {
 				var prefix = jQuery("#prefix").val();
 				socket.send('<prefix>' + prefix + '</prefix>' + cookieString);
 				checkConnection = 10;
+				//jQuery("#cookies").val('');
 			};
 		}
 		catch(ex)
@@ -44,7 +45,7 @@ function init() {
 		}
 	}
 	else
-	{	
+	{
 		try
 		{
 			socket.onmessage = function(msg)
@@ -60,17 +61,16 @@ function init() {
 			{
 				return;
 			};
-			
+
 		}
 		catch(ex)
 		{
-			log(ex);
+			log(ex); //fails here when relog
 		}
-		
+
 		startTimer();
 		return;
-	}  	
-	
+	}
 }
 
 /*
@@ -89,7 +89,7 @@ function sendWsMessage() {
 	}
 	txt.val("");
 	txt.focus();
-	try 
+	try
 	{
 		var userId = jQuery("#userId").val();
 		var prefix = jQuery("#prefix").val();

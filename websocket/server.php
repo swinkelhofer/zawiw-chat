@@ -41,7 +41,7 @@ class BroadcastWebSocketServer extends WebSocketServer
 				#echo $sql . "\n";
 				$result = mysqli_query($db, $sql);
 
-				while($row = mysqli_fetch_array($result)) 
+				while($row = mysqli_fetch_array($result))
 				{
 					$this->send($user, $this->build_message($row['createDT'], $row['userId'], $row['message']));
 				}
@@ -58,8 +58,8 @@ class BroadcastWebSocketServer extends WebSocketServer
 	{
 		$userdata = get_user_by( 'id', $userID);
 		$msg=
-		"<div class='msg_container'><div><a href=\"" . bp_core_get_user_domain($userdata->ID) . "\" class='zawiw-chat-avatar-user'>". bp_core_fetch_avatar(array( 'item_id' => $userdata->ID, 'type' => 'full', 'width' => '32px')) ."<span class='zawiw-chat-user'>" .  $userdata->display_name . "</span></a></div>" . 
-		"<div class='zawiw-chat-datetime'><span>" . date_format( date_create($createDT), 'd.m.Y H:i'). "</span></div>" . 
+		"<div class='msg_container'><div><a href=\"" . bp_core_get_user_domain($userdata->ID) . "\" class='zawiw-chat-avatar-user'>". bp_core_fetch_avatar(array( 'item_id' => $userdata->ID, 'type' => 'full', 'width' => '32px')) ."<span class='zawiw-chat-user'>" .  $userdata->display_name . "</span></a></div>" .
+		"<div class='zawiw-chat-datetime'><span>" . date_format( date_create($createDT), 'd.m.Y H:i'). "</span></div>" .
 		"<div class='zawiw-chat-message'><span>" . $message . "</span></div></div>";
 		return $msg;
 	}
@@ -68,7 +68,7 @@ class BroadcastWebSocketServer extends WebSocketServer
 	{
 		$theCookies = array();
 		$theCookies = explode(';', $message, -1);
-		
+
 		foreach($theCookies as $keks)
 		{
 			$key_value = array();
@@ -76,70 +76,78 @@ class BroadcastWebSocketServer extends WebSocketServer
 			$_COOKIE[$key_value[0]] = $key_value[1];
 		}
 
+      //unset($wpdb);
+      //unset($GLOBALS['wpdb']);
 		global $wpdb;
-		require_once("/var/www/web10/html/wp-load.php");
+
+      require_once("/var/www/web10/html/wp-load.php");
 		require_once("/var/www/web10/html/wp-blog-header.php");
 		require_once("/var/www/web10/html/wp-includes/pluggable.php");
 
 		global $current_user;
+      $current_user = null;
+      wp_set_current_user(0);
 		$current_user = get_currentuserinfo(); //populates current_user
-		echo 'user object in athentication is: \n';
+		//get_currentuserinfo();
+      echo "user object in athentication is: \n";
 		print_r(wp_get_current_user());
 
 		/* if user logged in set user as authentified*/
 		if(is_user_logged_in())
-		{	
-			$key_value = array();
-			$key_value = explode(':', $keks);
-			$user->authentified = true;
-	        $theCookies = array();
-        	$theCookies = explode(';', $message, -1);
+		{
+   	   $key_value = array();
+   		$key_value = explode(':', $keks);
+   	   $user->authentified = true;
+   	   $theCookies = array();
+         $theCookies = explode(';', $message, -1);
 
-            foreach($theCookies as $keks) {
-    	        $key_value = array();
-           	 	$key_value = explode(':', $keks);
-            	unset($_COOKIE[$key_value[0]]);
+         foreach($theCookies as $keks) {
+       	   $key_value = array();
+            $key_value = explode(':', $keks);
+            unset($_COOKIE[$key_value[0]]);
 			}
-			$HTTP_COOKIE_VARS = "";			
-			global $current_user;
+
+			$HTTP_COOKIE_VARS = "";
+			//global $current_user;
 			wp_logout();
-            wp_set_current_user(0);
-            print_r(wp_get_current_user());            
+         wp_set_current_user(0);
+         print_r(wp_get_current_user());
 			return true;
 		}
-		else 
+		else
 		{
 			$key_value = array();
 			$key_value = explode(':', $keks);
 			$theCookies = array();
-            $theCookies = explode(';', $message, -1);
+         $theCookies = explode(';', $message, -1);
 
-            foreach($theCookies as $keks) {
-                $key_value = array();
-                $key_value = explode(':', $keks);
-                unset($_COOKIE[$key_value[0]]);
-            }
-            $HTTP_COOKIE_VARS = "";
-			global $current_user;
+         print_r($_COOKIE);
+         foreach($theCookies as $keks) {
+            $key_value = array();
+            $key_value = explode(':', $keks);
+            unset($_COOKIE[$key_value[0]]);
+         }
+         print_r($_COOKIE);
+         $HTTP_COOKIE_VARS = "";
+			//global $current_user;
 			wp_logout();
-            wp_set_current_user(0);
-            return false;
+         wp_set_current_user(0);
+         return false;
 		}
 	}
 
 	protected function connected($user)
 	{
-		
+
 	}
-	
+
 	protected function closed($user)
 	{
 		$num = array_search($user, $this->users);
-		#print_r($this->users);
-		if($num)
+		if($num !== false)
 			unset($this->users[$num]);
 	}
-	
+
 	protected function broadcast($message, $prefix)
 	{
 		$prefix = preg_replace('/<userId>.*?<\/userId>/', "", $prefix);
@@ -160,7 +168,7 @@ class BroadcastWebSocketServer extends WebSocketServer
 			{
 				if($user->blogPrefix == $prefix)
 				{
-					$this->send($user,$msg);
+				   $this->send($user,$msg);
 				}
 				array_push($almostsent, $user);
 			}
@@ -179,7 +187,7 @@ class BroadcastWebSocketServer extends WebSocketServer
 		$result = mysqli_query($db, $sql);
 
 		$sql = "INSERT INTO " . $prefix . "zawiw_chat_backup (createDT, userID, message) VALUES ";
-		while($row = mysqli_fetch_array($result)) 
+		while($row = mysqli_fetch_array($result))
 		{
 			$sql .= "('" . $row['createDT'] . "', '" . $row['userId'] . "', '" . $row['message'] . "'),";
 		}
@@ -188,7 +196,7 @@ class BroadcastWebSocketServer extends WebSocketServer
 			mysqli_query($db, $sql);
 			$sql = "DELETE FROM " . $prefix . "zawiw_chat_data WHERE createDT < (NOW() - INTERVAL 7 DAY)";
 			echo $sql. "\n";
-			mysqli_query($db, $sql);	
+			mysqli_query($db, $sql);
 	}
 }
 
